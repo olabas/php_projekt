@@ -14,6 +14,60 @@
 		</a>
 	</div>
 	{% endfor %}#}
+	<!-- Split button -->
+
+	<div class="btn-group filters">
+		<button type="button" class="btn btn-danger filter">Kategoria</button>
+		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Another action</a></li>
+			<li><a href="#">Something else here</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">Separated link</a></li>
+		</ul>
+	</div>
+
+	<div class="btn-group filter">
+		<button type="button" class="btn btn-danger filter">Województwo</button>
+		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Another action</a></li>
+			<li><a href="#">Something else here</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">Separated link</a></li>
+		</ul>
+	</div>
+
+	<div class="btn-group filter">
+		<button type="button" class="btn btn-danger filter">Miejscowość</button>
+		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Action</a></li>
+			<li><a href="#">Another action</a></li>
+			<li><a href="#">Something else here</a></li>
+			<li role="separator" class="divider"></li>
+			<li><a href="#">Separated link</a></li>
+		</ul>
+	</div>
+
+    <div class="btn-group filter">
+	    <button type="button" class="btn btn-danger filter">Płeć:
+		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">K</label>
+		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">M</label>
+    	</button>
+    </div>
+
 
 	{% for row in posts %}
 	<div class="jumbotron content">
