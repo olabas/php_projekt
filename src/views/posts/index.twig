@@ -1,0 +1,31 @@
+{% extends 'base.twig' %}
+
+{% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
+
+{% block content %}
+	{#{% for row in posts %}
+	<div class="list-group">
+		<a href="#" class="list-group-item active">
+			<h4 class="list-group-item-heading">{{ row.title }}</h4>
+			<p class="list-group-item-text">
+			<li> id: {{ row.id }} </li>
+			<li> Artysta: {{ row.content }} </li>
+			</p>
+		</a>
+	</div>
+	{% endfor %}#}
+
+	{% for row in posts %}
+	<div class="jumbotron content">
+		<h1 class="title">{{ row.title }}</h1>
+		<p>	id: {{ row.id }}
+			Artysta: {{ row.content }}</p>
+		<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
+	</div>
+	{% endfor %}
+
+{% endblock %}
+
+
+{% block others %}
+{% endblock %}

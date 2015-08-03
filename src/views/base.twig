@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    {% block head %}
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>{% block title %}Baza Korepetycji - Serwis ogłoszeniowy{% endblock %}</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{{ app.request.basepath }}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link href="{{ app.request.basepath }}/assets/css/template.styles.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/assets/css/styles.css" rel="stylesheet">
+    {% endblock %}
+    </head>
+    <body>
+    <div class="wrapper">
+    <div class="box"
+
+            <!-- main right col -->
+            <div class="column col-sm-12 col-xs-11" id="main">
+
+                <!-- top nav -->
+                <div class="navbar navbar-blue navbar-static-top">
+
+                    <div class="navbar-header">
+                      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a href="{{ url('index') }}" class="navbar-brand logo">Korepetycje</a>
+                    </div>
+
+                    <nav class="collapse navbar-collapse navbar-right" role="navigation">
+                      <ul class="nav navbar-nav">
+                        {% block navbar_list %}
+                                <li>
+                                    <div class="input-group searching">
+                                        <input type="text" class="form-control searching-box" placeholder="Search for...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default searching-box" type="button">Go!</button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li>
+                                    <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add offer'|trans }}</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> {{ 'My profile'|trans }}</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="">{{ 'Data'|trans }}</a></li>
+                                        <li><a href="">{{ 'My offers'|trans }}</a></li>
+                                        <li><a href="">{{ 'Favourite'|trans }}</a></li>
+                                        <li><a href="{{ url('auth_logout') }}">{{ 'Logout'|trans }}</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ url('auth_login') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-log-in"></i> {{ 'Sign in'|trans }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('register_register') }}"><i class="glyphicon glyphicon-list-alt"></i> {{ 'Registration'|trans }}</a>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+                      </ul>
+                    </nav>
+                </div>
+                <!-- /top nav -->
+
+                <div class="padding">
+                    <div class="full col-sm-9">
+                        <div class="row">
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /main -->
+        </div>
+
+    </div>
+
+</div>
+{#
+{% if (info) %}
+    <div class="alert alert-success alert-dismissible notification" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong> {{ info }} </strong>
+    </div>
+{% endif %}
+
+{% if (warning) %}
+    <div class="alert alert-warning alert-dismissible notification" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>{{ warning }} </strong>
+    </div>
+{% endif %}
+
+{% if (error) %}
+    <div class="alert alert-danger alert-dismissible notification" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>{{ error }}</strong>
+    </div>
+{% endif %} #}
+
+{% block others %}
+{{ error }}
+{% endblock %}
+
+  <!-- script references -->
+    <script src="{{ app.request.basepath }}/assets/jquery/jquery-2.1.4.js"></script>
+    <script src="{{ app.request.basepath }}/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ app.request.basepath }}/assets/js/scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.twig' %}
+
+{% block title %}Baza Korepetycji - Rejestracja{% endblock %}
+
+{% block content %}
+    <form action="{{ path('register_register') }}" method="post" class="form center-block">
+        <div class="form-group">
+            {{ form_widget(form) }}
+        </div>
+        <button class="btn btn-primary">{{ 'Register'|trans }}</button>
+    </form>
+{% endblock %}
+
