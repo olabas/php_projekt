@@ -42,7 +42,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
      */
     public function indexAction(Application $app, Request $request)
     {
-        $view = array();
+        $view = parent::getView();
         $postsModel = new PostsModel($app);
         $view['posts'] = $postsModel->getAll();
         return $app['twig']->render('posts/index.twig', $view);
