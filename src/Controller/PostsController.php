@@ -13,6 +13,7 @@ use Silex\Application;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Model\PostsModel;
+use Model\FiltersModel;
 
 class PostsController extends BaseController implements ControllerProviderInterface
 {
@@ -44,7 +45,10 @@ class PostsController extends BaseController implements ControllerProviderInterf
     {
         $view = parent::getView();
         $postsModel = new PostsModel($app);
+        $filtersModel = new FiltersModel($app);
         $view['posts'] = $postsModel->getAll();
+        $view['categories'] = $filtersModel->getAllCategories();
+        $view['states'] = $filtersModel->getAllStates();
         return $app['twig']->render('posts/index.twig', $view);
     }
 }

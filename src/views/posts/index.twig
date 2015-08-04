@@ -17,37 +17,37 @@
 	<!-- Split button -->
 
 	<div class="btn-group filters">
-		<button type="button" class="btn btn-danger filter">Kategoria</button>
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-graduation-cap"> Kategoria</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
+
 		<ul class="dropdown-menu">
-			<li><a href="#">Action</a></li>
-			<li><a href="#">Another action</a></li>
-			<li><a href="#">Something else here</a></li>
+            {% for row in categories %}
+			<li><a class="dropdown" href="#">{{ row.title }}</a></li>
 			<li role="separator" class="divider"></li>
-			<li><a href="#">Separated link</a></li>
-		</ul>
+            {% endfor %}
+			</ul>
+
 	</div>
 
 	<div class="btn-group filter">
-		<button type="button" class="btn btn-danger filter">Województwo</button>
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-marker"> Województwo</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
-		<ul class="dropdown-menu">
-			<li><a href="#">Action</a></li>
-			<li><a href="#">Another action</a></li>
-			<li><a href="#">Something else here</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a href="#">Separated link</a></li>
-		</ul>
+        <ul class="dropdown-menu">
+            {% for row in states %}
+                <li><a class="dropdown" href="#">{{ row.name }}</a></li>
+                <li role="separator" class="divider"></li>
+            {% endfor %}
+        </ul>
 	</div>
 
 	<div class="btn-group filter">
-		<button type="button" class="btn btn-danger filter">Miejscowość</button>
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-signs"> Miejscowość</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
@@ -62,7 +62,7 @@
 	</div>
 
     <div class="btn-group filter">
-	    <button type="button" class="btn btn-danger filter">Płeć:
+	    <button type="button" class="btn btn-danger filter"><i class="fa fa-venus-mars"> Płeć:</i>
 		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">K</label>
 		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">M</label>
     	</button>
@@ -77,6 +77,25 @@
 		<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
 	</div>
 	{% endfor %}
+
+    {% for row in posts %}
+        <div class="jumbotron content">
+            <h1 class="title">{{ row.title }}</h1>
+            <p>	id: {{ row.id }}
+                Artysta: {{ row.content }}</p>
+            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
+        </div>
+    {% endfor %}
+
+
+    {% for row in posts %}
+        <div class="jumbotron content">
+            <h1 class="title">{{ row.title }}</h1>
+            <p>	id: {{ row.id }}
+                Artysta: {{ row.content }}</p>
+            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
+        </div>
+    {% endfor %}
 
 {% endblock %}
 

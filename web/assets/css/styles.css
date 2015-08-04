@@ -39,7 +39,7 @@
 }
 
 .filters {
-	margin-left: 55px;
+	margin-left: 27%;
 }
 
 .filter {
@@ -50,4 +50,10 @@
 .checkbox {
 	margin-top: 0px !important;
 	padding-left: 35px !important;
+}
+
+.dropdown {
+	padding: 0 20px 0 20px !important;
+	line-height: 1 !important;
+	font-size: 11px !important;
 }
