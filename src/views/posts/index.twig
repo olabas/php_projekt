@@ -72,41 +72,24 @@
 
 {% block content %}
 	{% for row in posts %}
-	<div class="jumbotron content">
-		<h1 class="title">{{ row.title }}</h1>
-		<p> {{ row.content }}</p>
-		<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-    </div>
-	{% endfor %}
-
-    {% for row in posts %}
-        <div class="jumbotron content">
-            <h1 class="title">{{ row.title }}</h1>
-            <p> {{ row.content }}</p>
-            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-        </div>
-    {% endfor %}
-
-
-    {% for row in posts %}
-        <div class="jumbotron content">
-            <h1 class="title">{{ row.title }}</h1>
-            <p> {{ row.content }}</p>
-            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-        </div>
-    {% endfor %}
-{% endblock %}
-
-{% block contentright %}
-    {% for row in posts %}
-        <div class="jumbotron content">
-            <h1 class="title">Dodane przez: {{ row.login }}</h1>
-            <p> Kategoria: {{ row.category }}</p>
-            <p> Województwo: {{ row.state }}</p>
-            <p> Miejscowość: {{ row.city }}</p>
-            <p> Cena: {{ row.price }}</p>
-            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-        </div>
+		<div class="row">
+			<div class="col-md-7">
+				<div class="jumbotron content">
+					<h1 class="title">{{ row.title }}</h1>
+					<p> {{ row.content }}</p>
+					<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
+			    </div>
+			</div>
+	    	<div class="col-md-5">
+		  		<div class="jumbotron content">
+			   		<h1 class="title">Dodane przez: {{ row.login }}</h1>
+			   		<p> Kategoria: {{ row.category }}</p>
+            		<p> Województwo: {{ row.state }}</p>
+           			<p> Miejscowość: {{ row.city }}</p>
+           			<p> Cena: {{ row.price }}</p>
+        		</div>
+			</div>
+		</div>
     {% endfor %}
 {% endblock %}
 
