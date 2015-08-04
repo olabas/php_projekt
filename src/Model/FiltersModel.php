@@ -47,14 +47,14 @@ class FiltersModel
      */
     public function getAllCategories()
     {
-        $query = 'SELECT id, title FROM categories';
+        $query = 'SELECT id, category FROM categories';
         $result = $this->db->fetchAll($query);
         return !$result ? array() : $result;
     }
 
     public function getAllStates()
     {
-        $query = 'SELECT id, name FROM states';
+        $query = 'SELECT id, state FROM states';
         $result = $this->db->fetchAll($query);
         return !$result ? array() : $result;
     }

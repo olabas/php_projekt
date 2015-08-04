@@ -2,7 +2,7 @@
 
 {% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
 
-{% block content %}
+{% block filter %}
 	{#{% for row in posts %}
 	<div class="list-group">
 		<a href="#" class="list-group-item active">
@@ -25,7 +25,7 @@
 
 		<ul class="dropdown-menu">
             {% for row in categories %}
-			<li><a class="dropdown" href="#">{{ row.title }}</a></li>
+			<li><a class="dropdown" href="#">{{ row.category }}</a></li>
 			<li role="separator" class="divider"></li>
             {% endfor %}
 			</ul>
@@ -40,7 +40,7 @@
 		</button>
         <ul class="dropdown-menu">
             {% for row in states %}
-                <li><a class="dropdown" href="#">{{ row.name }}</a></li>
+                <li><a class="dropdown" href="#">{{ row.state }}</a></li>
                 <li role="separator" class="divider"></li>
             {% endfor %}
         </ul>
@@ -68,21 +68,21 @@
     	</button>
     </div>
 
+{% endblock %}
 
+{% block content %}
 	{% for row in posts %}
 	<div class="jumbotron content">
 		<h1 class="title">{{ row.title }}</h1>
-		<p>	id: {{ row.id }}
-			Artysta: {{ row.content }}</p>
+		<p> {{ row.content }}</p>
 		<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-	</div>
+    </div>
 	{% endfor %}
 
     {% for row in posts %}
         <div class="jumbotron content">
             <h1 class="title">{{ row.title }}</h1>
-            <p>	id: {{ row.id }}
-                Artysta: {{ row.content }}</p>
+            <p> {{ row.content }}</p>
             <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
         </div>
     {% endfor %}
@@ -91,14 +91,24 @@
     {% for row in posts %}
         <div class="jumbotron content">
             <h1 class="title">{{ row.title }}</h1>
-            <p>	id: {{ row.id }}
-                Artysta: {{ row.content }}</p>
+            <p> {{ row.content }}</p>
             <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
         </div>
     {% endfor %}
-
 {% endblock %}
 
+{% block contentright %}
+    {% for row in posts %}
+        <div class="jumbotron content">
+            <h1 class="title">Dodane przez: {{ row.login }}</h1>
+            <p> Kategoria: {{ row.category }}</p>
+            <p> Województwo: {{ row.state }}</p>
+            <p> Miejscowość: {{ row.city }}</p>
+            <p> Cena: {{ row.price }}</p>
+            <p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
+        </div>
+    {% endfor %}
+{% endblock %}
 
 {% block others %}
 {% endblock %}

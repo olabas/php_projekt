@@ -47,7 +47,7 @@ class PostsModel
      */
     public function getAll()
     {
-        $query = 'SELECT id, title, content FROM posts';
+        $query = 'Select * from users inner join posts on (users.id=posts.user_id) inner join states on (states.id=posts.state_id) inner join cities on (cities.id=posts.city_id) inner join categories on (categories.id=posts.category_id)';
         $result = $this->db->fetchAll($query);
         return !$result ? array() : $result;
     }

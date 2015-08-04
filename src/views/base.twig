@@ -77,11 +77,23 @@
                 <!-- /top nav -->
 
                 <div class="padding">
-                    <div class="full col-sm-9">
+                    <div class="full col-sm-12">
                         <div class="row">
-                            {% block content %}{% endblock %}
+                            {% block filter %}{% endblock %}
                         </div>
                     </div>
+                    <div class="full col-sm-12">
+                        <div class="row">
+                        <div class="col-sm-7">
+                            {% block content %}{% endblock %}
+                        </div>
+                        <div class="col-sm-5">
+                            {% block contentright %}{% endblock %}
+                        </div>
+                            </div>
+                    </div>
+
+
                 </div>
             </div>
 
