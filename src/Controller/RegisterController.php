@@ -92,7 +92,8 @@ class RegisterController extends BaseController implements ControllerProviderInt
                         .'! '
                         .$app['translator']->trans('You can log in now')
                         .'.';
-                    return $app['twig']->render('posts/index.twig', $view);
+                    $view['form']=$form->createView();
+                    return $app['twig']->render('register/register.twig', $view);
                 } catch (UsernameNotUniqueException $e){
                     $error = $app['translator']->trans('Username')
                         .': '

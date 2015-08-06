@@ -51,5 +51,16 @@ class PostsModel
         $result = $this->db->fetchAll($query);
         return !$result ? array() : $result;
     }
-
+/**
+* Save album.
+*
+* @access public
+* @param array $album Album data
+* @retun mixed Result
+*/
+    public function addPost($post)
+    {
+        // add new record
+            return $this->db->insert('posts', $post);
+    }
 }

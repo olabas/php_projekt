@@ -85,6 +85,7 @@ $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+$app->mount('/data', new Controller\DataController());
 $app->mount('/register', new Controller\RegisterController());
 $app->mount('/auth', new Controller\AuthController());
 $app->mount('/', new Controller\PostsController());

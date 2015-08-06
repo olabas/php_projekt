@@ -1,0 +1,17 @@
+{% extends 'base.twig' %}
+
+{% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
+
+{% block content %}
+    {% for row in users %} {# users to string z nazwa usera a nie tablica. poprawic kontroller! #}
+        <div class="row">
+            <div class="col-md-7">
+                <div class="jumbotron content">
+                    <h1 class="title">{{ row.login }}</h1>
+                    <p> {{ row.name }}</p>
+                    <p> {{ row.surname }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

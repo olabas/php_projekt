@@ -61,3 +61,7 @@
 	line-height: 1 !important;
 	font-size: 11px !important;
 }
+
+.container {
+	padding: 0 20px 0 20px;
+}
