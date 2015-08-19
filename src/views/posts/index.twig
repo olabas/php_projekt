@@ -3,37 +3,22 @@
 {% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
 
 {% block filter %}
-	{#{% for row in posts %}
-	<div class="list-group">
-		<a href="#" class="list-group-item active">
-			<h4 class="list-group-item-heading">{{ row.title }}</h4>
-			<p class="list-group-item-text">
-			<li> id: {{ row.id }} </li>
-			<li> Artysta: {{ row.content }} </li>
-			</p>
-		</a>
-	</div>
-	{% endfor %}#}
-	<!-- Split button -->
-
-	<div class="btn-group filters">
-		<button type="button" class="btn btn-danger filter"><i class="fa fa-graduation-cap"> Kategoria</i></button>
+	<div class="btn-group filters" xmlns="http://www.w3.org/1999/html">
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-graduation-cap"> {{ 'Category'|trans }}</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
-
 		<ul class="dropdown-menu">
-            {% for row in categories %}
-			<li><a class="dropdown" href="#">{{ row.category }}</a></li>
-			<li role="separator" class="divider"></li>
-            {% endfor %}
-			</ul>
-
+			{% for row in categories %}
+				<li><a class="dropdown" href="#">{{ row.category }}</a></li>
+				<li role="separator" class="divider"></li>
+			{% endfor %}
+		</ul>
 	</div>
 
 	<div class="btn-group filter">
-		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-marker"> Województwo</i></button>
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-marker"> {{ 'State'|trans }}</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
@@ -47,7 +32,7 @@
 	</div>
 
 	<div class="btn-group filter">
-		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-signs"> Miejscowość</i></button>
+		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-signs"> {{ 'City'|trans }}</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<span class="caret"></span>
 			<span class="sr-only">Toggle Dropdown</span>
@@ -62,9 +47,9 @@
 	</div>
 
     <div class="btn-group filter">
-	    <button type="button" class="btn btn-danger filter"><i class="fa fa-venus-mars"> Płeć:</i>
-		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">K</label>
-		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">M</label>
+	    <button type="button" class="btn btn-danger filter"><i class="fa fa-venus-mars"> {{ 'Sex'|trans}}</i>
+		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">{{ 'F'|trans }}</label>
+		    <label class="checkbox-inline"><input class="checkbox" type="checkbox" value="">{{ 'M'|trans }}</label>
     	</button>
     </div>
 
@@ -72,22 +57,32 @@
 
 {% block content %}
 	{% for row in posts %}
-		<div class="row">
-			<div class="col-md-7">
-				<div class="jumbotron content">
-					<h1 class="title">{{ row.title }}</h1>
-					<p> {{ row.content }}</p>
-					<p><a class="btn btn-primary btn-lg button" href="#" role="button">Learn more</a>
-			    </div>
+		<div class="panel panel-default">
+			<div class="panel-body offers">
+				<div class="row panels">
+					<div class="col-md-7">
+						<div class="jumbotron offers">
+							<p><b>{{ row.title }}</b></p>
+							<p> {{ row.content }}</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="jumbotron offers">
+							<p><b >{{ 'Added by'|trans }} {{ row.login }}</b></p>
+							<p> {{ 'Category'|trans }} {{ row.category }}</p>
+							<p> {{ 'State'|trans }} {{ row.state }}</p>
+							<p> {{ 'City'|trans }} {{ row.city }}</p>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="jumbotron offers">
+							<p class="price">{{ row.price }} zł</p>
+						</div>
+					</div>
+				</div>
 			</div>
-	    	<div class="col-md-5">
-		  		<div class="jumbotron content">
-			   		<h1 class="title">Dodane przez: {{ row.login }}</h1>
-			   		<p> Kategoria: {{ row.category }}</p>
-            		<p> Województwo: {{ row.state }}</p>
-           			<p> Miejscowość: {{ row.city }}</p>
-           			<p> Cena: {{ row.price }}</p>
-        		</div>
+			<div class="panel-footer footer">
+				<a class="btn btn-primary btn-lg button" href="#" role="button">{{ 'Learn more'|trans }} </a>
 			</div>
 		</div>
     {% endfor %}

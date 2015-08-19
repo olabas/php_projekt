@@ -30,6 +30,8 @@ class DataController extends BaseController implements ControllerProviderInterfa
         $dataController->get('/', array($this, 'indexAction'))->bind('auth_data');
         $dataController->get('/data', array($this, 'indexAction'));
         $dataController->get('/data/', array($this, 'indexAction'));
+        $dataController->get('/offers', array($this, 'indexOffersAction'))->bind('auth_myoffers');
+        $dataController->get('/offers/', array($this, 'indexOffersAction'));
 
         return $dataController;
     }
@@ -42,13 +44,22 @@ class DataController extends BaseController implements ControllerProviderInterfa
      * @param Symfony\Component\HttpFoundation\Request $request Request object
      * @return string Output
      */
+
     public function indexAction(Application $app, Request $request)
     {
         $view = parent::getView();
         $signedInModel = new SignedInModel($app);
-        $view['users'] = $signedInModel->getOnlineUsername();
-        var_dump($view['users']);
+        $view['users'] = $signedInModel->getUser();
         return $app['twig']->render('auth/data.twig', $view);
+    }
+
+    public function indexOffersAction(Application $app, Request $request)
+    {
+        $view = parent::getView();
+        $signedInModel = new SignedInModel($app);
+        $view['users'] = $signedInModel->getUsersOffers();
+        $view['posts'] = $signedInModel->getUsersOffers();
+        return $app['twig']->render('auth/myoffers.twig', $view);
     }
 
 }

@@ -59,4 +59,11 @@ class FiltersModel
         return !$result ? array() : $result;
     }
 
+    public function choiceCategory()
+    {
+        foreach($categories as $category) {
+        $data[(int)$category['id']] = (string)$category['category'];
+        }
+        return isset($data) ? $data : array();
+    }
 }

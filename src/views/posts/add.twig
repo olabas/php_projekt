@@ -3,32 +3,70 @@
 {% block title %}Baza Korepetycji - Logowanie{% endblock %}
 
 {% block content %}
-    <div class="container">
-    <div class="panel panel-default">
+    <div class="panel panel-default dates">
         <div class="panel-heading">
-            <h3 class="panel-title">Dodaj Ogłoszenie !</h3>
+            <h3 class="panel-title title">{{ 'Add offer!'|trans }}</h3>
         </div>
-        <div class="panel-body">
-    <form action="{{ path('posts_add') }}" method="post" class="form center-block">
-        <div class="form-group">
-            {{ form_errors(form.title) }}
-            {{ form_label(form.title) }}
-            {{ form_widget(form.title) }}
-        </div>
-        <div class="form-group">
-            {{ form_errors(form.content) }}
-            {{ form_label(form.content) }}
-            {{ form_widget(form.content) }}
-        </div>
-        <div class="form-group">
-            {{ form_errors(form.price) }}
-            {{ form_label(form.price) }}
-            {{ form_widget(form.price) }}
-        </div>
-        <button class="btn btn-primary">{{ 'dodaj' }}</button>
-    </form>
-</div>
-      </div>
-        </div>
+        <form class="panel-body add-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <form action="{{ path('posts_add') }}" method="post" class="form center-block">
+                        <div class="form-group">
+                             {{ form_errors(form.title) }}
+                             {{ form_label(form.title) }}
+                             {{ form_widget(form.title) }}
+                        </div>
+
+                        <div class="form-group">
+                             {{ form_errors(form.content) }}
+                             {{ form_label(form.content) }}
+                             {{ form_widget(form.content) }}
+                        </div>
+
+                        <div class="form-group">
+                             {{ form_errors(form.price) }}
+                             {{ form_label(form.price) }}
+                             {{ form_widget(form.price) }}
+                        </div>
+                        <button class="btn btn-primary">{{ 'Add offer'|trans }}</button>
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+                    <form action="{{ path('posts_add') }}" method="post" class="form center-block">
+                        <div class="btn-group filter">
+                            {{ form_label(form.category) }}<br>
+                            <button type="button" class="btn form-group filter"><i class="fa fa-map-marker">{{ 'Category'|trans }}</i></button>
+                            <button type="button" class="btn form-group dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for row in categories %}
+                                    <li><a class="dropdown" href="#">{{ row.category }}</a></li>
+                                    <li role="separator" class="divider"></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <br><br>
+                        <div class="btn-group filter">
+                            {{ form_label(form.state) }}<br>
+                            <button type="button" class="btn form-group filter"><i class="fa fa-map-marker">{{ 'State'|trans }}</i></button>
+                            <button type="button" class="btn form-group dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for row in states %}
+                                    <li><a class="dropdown" href="#">{{ row.state }}</a></li>
+                                    <li role="separator" class="divider"></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 

@@ -1,0 +1,45 @@
+{% extends 'base.twig' %}
+
+{% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
+
+{% block filter %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header header">
+        <h1> {{ 'My profile'|trans }} <small> {{ 'My offers'|trans }} </small></h1>
+    </div>
+    <div class="line-separator"></div>
+	{% for row in posts %}
+        <div class="panel panel-default">
+            <div class="panel-body offers">
+                <div class="row panels">
+                    <div class="col-md-7">
+                        <div class="jumbotron offers">
+                            <p><b>{{ row.title }}</b></p>
+                            <p> {{ row.content }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="jumbotron offers">
+                            <p><b> {{ 'Added by'|trans }} {{ row.login }}</b></p>
+                            <p> {{ 'Category'|trans }} {{ row.category }}</p>
+                            <p> {{ 'State'|trans }} {{ row.state }}</p>
+                            <p> {{ 'City'|trans }} {{ row.city }}</p>
+                        </div></div>
+                    <div class="col-md-2">
+                        <div class="jumbotron offers">
+                            <p class="price">{{ row.price }} zł</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer footer">
+                <a class="btn btn-primary btn-lg button" href="#" role="button"> {{ 'Learn more'|trans }} </a>
+            </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block others %}
+{% endblock %}

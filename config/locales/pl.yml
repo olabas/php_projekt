@@ -1,8 +1,8 @@
-
+Corepetitions: Korepetycje
 
 translation: tłumaczenie
 
-Login: Zaloguj się
+Login: Nazwa użytkownika (login)
 
 Sign in: Zaloguj
 
@@ -11,6 +11,10 @@ Logout: Wyloguj
 Registration: Rejestracja
 
 Register: Zarejestruj
+
+Search: Szukaj
+
+Search for...: Wpisz frazę...
 
 Account: Konto
 
@@ -25,6 +29,8 @@ Surname: Nazwisko
 
 Address: Adres
 
+E-mail: E-mail
+
 Phone number: Numer telefonu
 
 Data: Dane
@@ -37,6 +43,24 @@ Add offer: Dodaj ogłoszenie
 
 My profile: Mój profil
 
+My data: Moje dane
+
+Welcome to the User`s profile panel!: Witamy w podglądzie profilu użytkownika!
+
+Login panel: Panel logowania
+
+Learn more: Czytaj dalej
+
+Added by: Dodane przez:
+
+Category: Kategoria:
+
+State: Województwo:
+
+City: Miasto:
+
+Sex: Płeć:
+
 is not unique: jest zajęta
 
 has been successfully registered: zostało pomyślnie utworzone
@@ -44,7 +68,5 @@ has been successfully registered: zostało pomyślnie utworzone
 You can log in now: Teraz możesz się zalogować
 
 Passwords do not match: Podane hasła muszą być takie same
-
-
 
 

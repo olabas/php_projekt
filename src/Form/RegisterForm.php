@@ -47,7 +47,7 @@ class RegisterForm extends AbstractType
                     new Assert\Length(array('min' => 2, 'max' => 16))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control parts'
                 )
             )
         )
@@ -60,7 +60,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 8))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -74,7 +74,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 8))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -88,7 +88,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 3))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -102,7 +102,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 2))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -115,7 +115,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 8))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -128,7 +128,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 8))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             )
@@ -141,7 +141,7 @@ class RegisterForm extends AbstractType
                         new Assert\Length(array('min' => 9))
                     ),
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => 'form-control parts'
                     )
                 )
             );

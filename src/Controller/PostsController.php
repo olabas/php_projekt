@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Model\PostsModel;
 use Model\FiltersModel;
 use Symfony\Component\Validator\Constraints as Assert;
+use Form\PostsForm;
 
 class PostsController extends BaseController implements ControllerProviderInterface
 {
@@ -64,39 +65,14 @@ class PostsController extends BaseController implements ControllerProviderInterf
         $data = array(
             'title' => 'Title',
             'content' => 'Content',
-            'price' => 'Price'
+            'price' => 'Price',
+            'category' => 'Category',
+            'state' => 'State'
         );
 
-        $form = $app['form.factory']->createBuilder('form', $data)
-            ->add(
-                'title', 'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 5))
-                    )
-                )
-            )
-            ->add(
-                'content', 'textarea',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 5))
-                    )
-                )
-            )
-
-            ->add(
-                'price', 'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 2))
-                    )
-                )
-            )
+        $form = $app['form.factory']->createBuilder(new PostsForm(), $data)
             ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -106,7 +82,6 @@ class PostsController extends BaseController implements ControllerProviderInterf
         }
         $view = parent::getView();
         $view['form'] = $form->createView();
-
         return $app['twig']->render('posts/add.twig', $view);
     }
 

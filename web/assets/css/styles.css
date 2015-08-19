@@ -25,21 +25,30 @@
 .searching-box {
     border-radius: 0px !important;
 }
+
 .title {
 	font-size: 21px !important;
+	text-align: center;
 }
 
-.content {
-	font-size: 10px;
+.offers {
+	font-size: 16px;
 	padding: 0px;
+	padding-top: 20px;
 	width: 100%;
-	padding-left: 55px;
-
-
+	background-color: #E9EAED;
 }
+
+.profile {
+	font-size: 16px;
+	padding-top: 0px;
+	width: 100%;
+}
+
 .button {
-	font-size: 12px;
+	font-size: 18px;
 	padding: 7px 10px;
+	background-color: #940000;
 }
 
 .filters {
@@ -62,6 +71,57 @@
 	font-size: 11px !important;
 }
 
-.container {
-	padding: 0 20px 0 20px;
+.contain {
+	margin: 0 5% 0 5%;;
+}
+
+.footer {
+	text-align: center;
+	background-color: #E9EAED;
+}
+
+.price {
+	font-size: 70px !important;
+}
+
+.panels {
+	padding: 10px !important;
+}
+
+.parts {
+	font-size: 14px;
+	margin-top: 5px !important;
+	margin-bottom: 15px !important;
+	width: 700px;
+	text-align: center;
+	padding-left: 15px !important;
+}
+
+.header {
+	margin-top: 0px;
+	padding-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.line-separator {
+	height: 1px;
+	background: #717171;
+	border-bottom: 1px solid #d8d9dc;
+	margin-bottom: 30px;
+}
+
+.textarea {
+	width: 700px;
+	height: 200px !important;
+}
+
+.small-parts {
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: right !important;
+}
+
+.add-body {
+	padding: 15px 100px;
 }

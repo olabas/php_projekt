@@ -42,6 +42,7 @@ class SignedInModel
     {
         $this->db = $app['db'];
         $this->security = $app['security'];
+        $this->app = $app;
     }
 
     public function getOnlineUsername()
@@ -53,10 +54,25 @@ class SignedInModel
         return isset($user) ? $user : array();
     }
 
-    public function getUser($login)
+    public function getUser()
     {
+        $login = $this -> getOnlineUsername();
         $query = 'SELECT * FROM users WHERE login = :login';
-        $result = $this->db->fetchAll($query);
+        $statement = $this->app['db']->prepare($query);
+        $statement->bindValue('login', $login, \PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return !$result ? array() : $result;
     }
+    public function getUsersOffers()
+    {
+        $login = $this -> getOnlineUsername();
+        $query = 'Select * from users inner join posts on (users.id=posts.user_id) inner join states on (states.id=posts.state_id) inner join cities on (cities.id=posts.city_id) inner join categories on (categories.id=posts.category_id) where login = :login';
+        $statement = $this->app['db']->prepare($query);
+        $statement->bindValue('login', $login, \PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return !$result ? array() : $result;
+    }
+
 }

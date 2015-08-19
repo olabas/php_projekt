@@ -13,6 +13,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Model\FiltersModel;
+use Silex\Application;
 
 /**
  * Class LoginForm.
@@ -36,6 +38,14 @@ class PostsForm extends AbstractType
      *
      * @return FormBuilderInterface
      */
+
+    protected $app;
+
+    public function __construct (Application $app)
+    {
+        $this->app=$app;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
@@ -47,7 +57,7 @@ class PostsForm extends AbstractType
                     new Assert\Length(array('min' => 8, 'max' => 16))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control parts'
                 )
             )
         )
@@ -60,9 +70,7 @@ class PostsForm extends AbstractType
                         new Assert\Length(array('min' => 8))
                     ),
                     'attr' => array(
-                        'class' => 'form-control',
-                        'cols' => '5',
-                        'rows' => '5'
+                        'class' => 'form-control textarea',
                     )
                 )
             )
@@ -76,10 +84,42 @@ class PostsForm extends AbstractType
                 new Assert\Length(array('min' => 2))
             ),
             'attr' => array(
-                'class' => 'form-control'
+                'class' => 'form-control parts'
             )
         )
-    );
+    )
+            ->add(
+                'category',
+                'choice',
+                array(
+                    'attr' => array(
+                        'class' => 'form-control small-parts',
+                    )
+                )
+            )
+
+            ->add(
+                'state',
+                'choice',
+                array(
+                    'attr' => array(
+                        'class' => 'form-control small-parts',
+                    )
+                )
+            )
+
+            ->add(
+                'city',
+                'choice',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(),
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control small-parts',
+                    )
+                )
+            );
     }
 
     /**
@@ -89,8 +129,15 @@ class PostsForm extends AbstractType
      *
      * @return string
      */
-    public function getPost()
+    public function getName()
     {
         return 'postsForm';
+    }
+
+    private function getCategories($app)
+    {
+        $categoryModel = new FiltersModel($app);
+        $data = $categoryModel -> getAllCategories();
+        $tab = $categoryModel -> choiceCategory();
     }
 }

@@ -3,11 +3,16 @@
 {% block title %}Baza Korepetycji - Logowanie{% endblock %}
 
 {% block content %}
-    <form action="{{ path('auth_login_check') }}" method="post" class="form center-block">
-        <div class="form-group">
-            {{ form_widget(form) }}
+    <div class="panel panel-default contain">
+        <div class="panel-heading">
+            <h3 class="panel-title title">{{ 'Login panel'|trans }}</h3>
         </div>
-        <button class="btn btn-primary">{{ 'Sign in'|trans }}</button>
-    </form>
+        <div class="panel-body">
+            <form action="{{ path('auth_login_check') }}" method="post" class="form center-block parts">
+            <div class="form-group"> {{ form_widget(form) }} </div>
+            <button class="btn btn-primary button">{{ 'Sign in'|trans }}</button>
+             </form>
+        </div>
+    </div>
 {% endblock %}
 
