@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Log in form.
+ * Posts form.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
 
 namespace Form;
@@ -17,9 +18,8 @@ use Model\FiltersModel;
 use Silex\Application;
 
 /**
- * Class LoginForm.
+ * Class PostsForm.
  *
- * @category Epi
  * @package Form
  * @extends AbstractType
  * @use Symfony\Component\Form\AbstractType
@@ -41,7 +41,7 @@ class PostsForm extends AbstractType
 
     protected $app;
 
-    public function __construct (Application $app)
+    public function __construct(Application $app)
     {
         $this->app=$app;
     }
@@ -58,68 +58,60 @@ class PostsForm extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control parts'
-                )
+                ),
+                'label' => 'Tytuł'
             )
         )
-            ->add(
-                'content',
-                'textarea',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 8))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control textarea',
-                    )
-                )
-            )
-
         ->add(
-        'price',
-        'text',
-        array(
-            'constraints' => array(
-                new Assert\NotBlank(),
-                new Assert\Length(array('min' => 2))
-            ),
-            'attr' => array(
-                'class' => 'form-control parts'
+            'content',
+            'textarea',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 8))
+                ),
+                'attr' => array(
+                    'class' => 'form-control textarea',
+                ),
+                'label' => 'Treść'
             )
         )
-    )
-            ->add(
-                'category',
-                'choice',
-                array(
-                    'attr' => array(
-                        'class' => 'form-control small-parts',
-                    )
-                )
+        ->add(
+            'price',
+            'text',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 2))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
+                ),
+                'label' => 'Cena'
             )
-
-            ->add(
-                'state',
-                'choice',
-                array(
-                    'attr' => array(
-                        'class' => 'form-control small-parts',
-                    )
-                )
+        )
+        ->add(
+            'category_id',
+            'choice',
+            array(
+                'attr' => array(
+                    'class' => 'form-control small-parts',
+                ),
+                'choices' => $this->getCategory($this->app),
+                'label' => 'Kategoria'
             )
-
-            ->add(
-                'city',
-                'choice',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control small-parts',
-                    )
-                )
-            );
+        )
+        ->add(
+            'city_id',
+            'choice',
+            array(
+                'attr' => array(
+                    'class' => 'form-control small-parts',
+                ),
+                'choices' => $this->getCity($this->app),
+                'label' => 'Lokalizacja'
+            )
+        );
     }
 
     /**
@@ -134,10 +126,33 @@ class PostsForm extends AbstractType
         return 'postsForm';
     }
 
-    private function getCategories($app)
+    /**
+     * Gets category name.
+     *
+     * @access private
+     *
+     * @return array
+     */
+    private function getCategory($app)
     {
         $categoryModel = new FiltersModel($app);
-        $data = $categoryModel -> getAllCategories();
-        $tab = $categoryModel -> choiceCategory();
+        $data = $categoryModel->getAllCategories();
+        $tab = $categoryModel->choiceCategory($data);
+        return isset($tab) ? $tab : array();
+    }
+
+     /**
+     * Gets city name.
+     *
+     * @access private
+     *
+     * @return array
+     */
+    private function getCity($app)
+    {
+        $cityModel = new FiltersModel($app);
+        $data = $cityModel->getAllCities();
+        $tab = $cityModel->choiceCity($data);
+        return isset($tab) ? $tab : array();
     }
 }

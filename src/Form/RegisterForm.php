@@ -1,6 +1,6 @@
 <?php
 /**
- * Log in form.
+ * Register form.
  *
  * @author EPI <epi@uj.edu.pl>
  * @link http://epi.uj.edu.pl
@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class RegisterForm.
  *
- * @category Epi
  * @package Form
  * @extends AbstractType
  * @use Symfony\Component\Form\AbstractType
@@ -51,100 +50,84 @@ class RegisterForm extends AbstractType
                 )
             )
         )
-            ->add(
-                'password',
-                'password',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 8))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        ->add(
+            'password',
+            'password',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 8))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-
-            ->add(
-                'repeat_password',
-                'password',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 8))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        )
+        ->add(
+            'repeat_password',
+            'password',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 8))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-
-            ->add(
-                'name',
-                'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 3))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        )
+        ->add(
+            'name',
+            'text',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 3))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-
-            ->add(
-                'surname',
-                'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 2))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        )
+        ->add(
+            'surname',
+            'text',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 2))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-            ->add(
-                'address',
-                'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 8))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        )
+        ->add(
+            'email',
+            'text',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 8))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-            ->add(
-                'email',
-                'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 8))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
+        )
+        ->add(
+            'phone_number',
+            'text',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\Length(array('min' => 9))
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
                 )
             )
-            ->add(
-                'phone_number',
-                'text',
-                array(
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\Length(array('min' => 9))
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control parts'
-                    )
-                )
-            );
+        );
     }
 
     /**

@@ -1,0 +1,49 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'Offers'|trans }} {% endblock %}
+
+{% block filter %}
+{% endblock %}
+
+{% block content %}
+ <div class="page-header header">
+        <h1> {{ 'Offers'|trans }} <small> {{ post.category }} / {{ post.city }} </small></h1>
+    </div>
+     <div class="line-separator"></div>
+	{% if post|length > 0 %}
+			<div class="post panels">
+				<div class="panel panel-default contain">
+					<div class="panel-heading">
+					    <h3 class="panel-title title">{{ post.title }}</h3>
+		  			</div>
+					<div class="panel-body profile">
+						<div class="row post-view"> 
+
+							<div class="col-md-7">
+								<p>{{ 'Date'|trans }}: {{ post.post_date }}</p>	
+								<div class="line-separator"></div>
+								<p class="content_preview"> {{ post.content }}</p>
+								<div class="line-separator"></div>
+			 					<p> <b> {{ 'Price'|trans }}: </b> {{ post.price }} {{ 'PLN per hour'|trans }}
+						    </div>
+
+							<div class="col-md-5">
+			        			<img style="display: block; margin: 0 auto" src="http://www.taneczne-wieczory.com.pl/img/default.png" alt="Smiley face" height="200" width="200">
+			                    <p> <b>{{ 'Login'|trans }}: </b> {{ post.login }} </p>
+			                    <p> <b>{{ 'Name'|trans }}: </b> {{ post.name }} </p>
+			                    <p> <b>{{ 'Surname'|trans }}: </b> {{ post.surname }} </p>
+			 	                <p> <b>{{ 'E-mail'|trans }}: </b> {{ post.email }} </p>
+			                    <p> <b>{{ 'Phone number'|trans }}: </b> {{ post.phone_number }} </p>   
+			                  
+			        		</div>
+						</div>
+					</div>
+				</div>
+				</div>
+	{% else %}
+		kupa
+    {% endif %}
+{% endblock %}
+
+{% block others %}
+{% endblock %}

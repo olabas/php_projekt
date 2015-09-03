@@ -1,8 +1,13 @@
 {% extends 'base.twig' %}
 
-{% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
+{% block title %} {{ 'Find your teacher'|trans }} {% endblock %}
 
 {% block filter %}
+ <div class="page-header header index">
+        <h1> {{ 'Offers'|trans }} <small> {{ 'Filter and view offers'|trans }} </small></h1>
+    </div>
+     <div class="line-separator"></div>
+
 	<div class="btn-group filters" xmlns="http://www.w3.org/1999/html">
 		<button type="button" class="btn btn-danger filter"><i class="fa fa-graduation-cap"> {{ 'Category'|trans }}</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,21 +21,6 @@
 			{% endfor %}
 		</ul>
 	</div>
-
-	<div class="btn-group filter">
-		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-marker"> {{ 'State'|trans }}</i></button>
-		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<span class="caret"></span>
-			<span class="sr-only">Toggle Dropdown</span>
-		</button>
-        <ul class="dropdown-menu">
-            {% for row in states %}
-                <li><a class="dropdown" href="#">{{ row.state }}</a></li>
-                <li role="separator" class="divider"></li>
-            {% endfor %}
-        </ul>
-	</div>
-
 	<div class="btn-group filter">
 		<button type="button" class="btn btn-danger filter"><i class="fa fa-map-signs"> {{ 'City'|trans }}</i></button>
 		<button type="button" class="btn btn-danger dropdown-toggle filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -38,11 +28,10 @@
 			<span class="sr-only">Toggle Dropdown</span>
 		</button>
 		<ul class="dropdown-menu">
-			<li><a href="#">Action</a></li>
-			<li><a href="#">Another action</a></li>
-			<li><a href="#">Something else here</a></li>
-			<li role="separator" class="divider"></li>
-			<li><a href="#">Separated link</a></li>
+			{% for row in cities %}
+				<li><a class="dropdown" href="#">{{ row.city }}</a></li>
+				<li role="separator" class="divider"></li>
+			{% endfor %}
 		</ul>
 	</div>
 
@@ -70,7 +59,6 @@
 						<div class="jumbotron offers">
 							<p><b >{{ 'Added by'|trans }} {{ row.login }}</b></p>
 							<p> {{ 'Category'|trans }} {{ row.category }}</p>
-							<p> {{ 'State'|trans }} {{ row.state }}</p>
 							<p> {{ 'City'|trans }} {{ row.city }}</p>
 						</div>
 					</div>
@@ -80,9 +68,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="panel-footer footer">
-				<a class="btn btn-primary btn-lg button" href="#" role="button">{{ 'Learn more'|trans }} </a>
+				<div class="panel-footer footer">
+					<a href="{{ url('posts_view', {'id': row.id})}}" class="btn btn-primary btn-lg" type="button">{{ 'Learn more'|trans }}</a>
+				</div>
 			</div>
 		</div>
     {% endfor %}

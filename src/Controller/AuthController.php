@@ -1,11 +1,13 @@
 <?php
+
 /**
  * Auth controller.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
+
 
 namespace Controller;
 
@@ -18,6 +20,7 @@ use Form\LoginForm;
  * Class AuthController.
  *
  * @package Controller
+ * @extends BaseController
  * @implements ControllerProviderInterface
  */
 class AuthController extends BaseController implements ControllerProviderInterface
@@ -27,7 +30,7 @@ class AuthController extends BaseController implements ControllerProviderInterfa
      *
      * @access public
      * @param Silex\Application $app Silex application
-     * @return AlbumsController Result
+     * @return authController Result
      */
     public function connect(Application $app)
     {

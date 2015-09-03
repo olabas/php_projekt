@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Albums model.
+ * Filters model.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
 
 namespace Model;
@@ -12,9 +13,8 @@ namespace Model;
 use Silex\Application;
 
 /**
- * Class AlbumsModel.
+ * Class FiltersModel.
  *
- * @category Epi
  * @package Model
  * @use Silex\Application
  */
@@ -40,7 +40,7 @@ class FiltersModel
     }
 
     /**
-     * Gets all albums.
+     * Gets all categories.
      *
      * @access public
      * @return array Result
@@ -52,17 +52,45 @@ class FiltersModel
         return !$result ? array() : $result;
     }
 
-    public function getAllStates()
+    /**
+     * Gets all cities.
+     *
+     * @access public
+     * @return array Result
+     */
+    public function getAllCities()
     {
-        $query = 'SELECT id, state FROM states';
+        $query = 'SELECT id, city FROM cities';
         $result = $this->db->fetchAll($query);
         return !$result ? array() : $result;
     }
 
-    public function choiceCategory()
+    /**
+     * Choice category
+     *
+     * @access public
+     * @param array $categories Categories name
+     * @return array
+     */
+    public function choiceCategory($categories)
     {
-        foreach($categories as $category) {
-        $data[(int)$category['id']] = (string)$category['category'];
+        foreach ($categories as $category) {
+            $data[(int)$category['id']] = (string)$category['category'];
+        }
+        return isset($data) ? $data : array();
+    }
+
+    /**
+     * Choice city.
+     *
+     * @access public
+     * @param array $cities Cities name
+     * @return array
+     */
+    public function choiceCity($cities)
+    {
+        foreach ($cities as $city) {
+            $data[(int)$city['id']] = (string)$city['city'];
         }
         return isset($data) ? $data : array();
     }

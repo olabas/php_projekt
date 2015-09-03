@@ -1,6 +1,6 @@
 <?php
 /**
- * Log in form.
+ * Messages form.
  *
  * @link http://wierzba.wzks.uj.edu.pl/13_bassara
  * @author Aleksandra Bassara <olabassara@gmail.com>
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class LoginForm.
+ * Class MessagesForm.
  *
  * @package Form
  * @extends AbstractType
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @use Symfony\Component\OptionsResolver\OptionsResolverInterface
  * @use Symfony\Component\Validator\Constraints as Assert
  */
-class LoginForm extends AbstractType
+class MessagesForm extends AbstractType
 {
     /**
      * Form builder.
@@ -37,30 +37,33 @@ class LoginForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return  $builder->add(
-            'login',
+        return $builder->add(
+            'title',
             'text',
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8, 'max' => 16))
+                    new Assert\Length(array('min' => 5, 'max' => 60))
                 ),
                 'attr' => array(
                     'class' => 'form-control'
                 ),
+                'label' => 'Tytuł'
             )
         )
         ->add(
-            'password',
-            'password',
+            'content',
+            'textarea',
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8))
+                    new Assert\Length(array('min' => 5))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
-                )
+                    'class' => 'form-control',
+                    'rows' => 10
+                ),
+                'label' => 'Wiadomość'
             )
         );
     }
@@ -74,6 +77,6 @@ class LoginForm extends AbstractType
      */
     public function getName()
     {
-        return 'loginForm';
+        return 'messagesForm';
     }
 }

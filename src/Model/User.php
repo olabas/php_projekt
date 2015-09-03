@@ -29,8 +29,20 @@ final class User implements AdvancedUserInterface
     private $roles;
 
 
-    public function __construct($username, $password, $name, $surname, $address, $email, $phone_number, array $roles = array(), $enabled = true, $userNonExpired = true, $credentialsNonExpired = true, $userNonLocked = true)
-    {
+    public function __construct(
+        $username,
+        $password,
+        $name,
+        $surname,
+        $address,
+        $email,
+        $phone_number,
+        array $roles = array(),
+        $enabled = true,
+        $userNonExpired = true,
+        $credentialsNonExpired = true,
+        $userNonLocked = true
+    ) {
         if (empty($username)) {
             throw new \InvalidArgumentException('The username cannot be empty.');
         }

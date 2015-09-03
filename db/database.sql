@@ -35,7 +35,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Matematyka'),(2,'J?zyk polski'),(3,'J?zyk angielski'),(4,'Historia'),(5,'Fizyka'),(6,'Chemia'),(7,'Geografia'),(8,'J?zyk niemiecki'),(9,'Wiedza o spo?ecze?stwie'),(10,'Biologia');
+INSERT INTO `categories` VALUES (1,'Matematyka'),(2,'Język polski'),(3,'J?zyk angielski'),(4,'Historia'),(5,'Fizyka'),(6,'Chemia'),(7,'Geografia'),(8,'J?zyk niemiecki'),(9,'Wiedza o spo?ecze?stwie'),(10,'Biologia');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 

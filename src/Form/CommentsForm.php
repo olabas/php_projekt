@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Log in form.
+ * Comments form.
  *
  * @link http://wierzba.wzks.uj.edu.pl/13_bassara
  * @author Aleksandra Bassara <olabassara@gmail.com>
@@ -15,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class LoginForm.
+ * Class CommentsForm.
  *
  * @package Form
  * @extends AbstractType
@@ -24,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @use Symfony\Component\OptionsResolver\OptionsResolverInterface
  * @use Symfony\Component\Validator\Constraints as Assert
  */
-class LoginForm extends AbstractType
+class CommentsForm extends AbstractType
 {
     /**
      * Form builder.
@@ -37,30 +38,19 @@ class LoginForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return  $builder->add(
-            'login',
-            'text',
+        return $builder->add(
+            'content',
+            'textarea',
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8, 'max' => 16))
+                    new Assert\Length(array('min' => 5))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'rows' => 10
                 ),
-            )
-        )
-        ->add(
-            'password',
-            'password',
-            array(
-                'constraints' => array(
-                    new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8))
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                )
+                'label' => false
             )
         );
     }
@@ -74,6 +64,6 @@ class LoginForm extends AbstractType
      */
     public function getName()
     {
-        return 'loginForm';
+        return 'commentsForm';
     }
 }

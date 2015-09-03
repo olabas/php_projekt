@@ -73,7 +73,7 @@ $app->register(
         'db.options' => array(
             'driver'    => 'pdo_mysql',
             'host'      => 'localhost',
-            'dbname'    => '13_bassara',
+            'dbname'    => 'php_projekt',
             'user'      => 'root',
             'password'  => 'root',
             'charset'   => 'utf8',

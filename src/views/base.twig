@@ -1,11 +1,11 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
     <head>
     {% block head %}
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
-        <title>{% block title %}Baza Korepetycji - Serwis ogłoszeniowy{% endblock %}</title>
+        <title>{% block title %} {{ 'Find your teacher'|trans }} {% endblock %}</title>
         <meta name="generator" content="Bootply" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="{{ app.request.basepath }}/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,12 +29,6 @@
                 <div class="navbar navbar-blue navbar-static-top">
 
                     <div class="navbar-header">
-                      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
                       <a href="{{ url('index') }}" class="navbar-brand logo">{{ 'Corepetitions'|trans }}</a>
                     </div>
 
@@ -51,14 +45,14 @@
                                 </li>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li>
-                                    <a href="{{ url('posts_add') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add offer'|trans }}</a>
+                                    <a href="{{ url('posts_add') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add an offer'|trans }}</a>
                                 </li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> {{ 'My profile'|trans }}</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ url('auth_data') }}">{{ 'Data'|trans }}</a></li>
                                         <li><a href="{{ url('auth_myoffers') }}">{{ 'My offers'|trans }}</a></li>
-                                        <li><a href="">{{ 'Favourite'|trans }}</a></li>
+                                        <li><a href="{{ url('messages_index') }}">{{ 'Messages'|trans }}</a></li>
                                         <li><a href="{{ url('auth_logout') }}">{{ 'Logout'|trans }}</a></li>
                                     </ul>
                                 </li>
@@ -96,7 +90,7 @@
     </div>
 
 </div>
-
+{#
 {% if (info) %}
     <div class="alert alert-success alert-dismissible notification" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -120,7 +114,7 @@
 
 {% block others %}
 {{ error }}
-{% endblock %}
+{% endblock %}#}
 
   <!-- script references -->
     <script src="{{ app.request.basepath }}/assets/jquery/jquery-2.1.4.js"></script>

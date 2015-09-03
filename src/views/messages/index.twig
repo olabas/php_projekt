@@ -1,0 +1,53 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{'Find your teacher'|trans }} / {{ 'Messages'|trans }} {% endblock %}
+
+{% block filter %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header header">
+        <h1> {{ 'My profile'|trans }} <small> {{ 'Messages'|trans }} </small></h1>
+    </div>
+    <div class="line-separator"></div>
+            <div class="panel panel-default">
+      <!-- Default panel contents -->
+
+      <!-- Table -->
+      <table class="table table-hover">
+            <div class="row">
+             <tr>
+        <th></th>
+        <th>{{'Title'|trans}}</th>
+        <th>{{'Sender'|trans}}</th>
+        <th>{{'Date'|trans}}</th>
+    </tr>
+    {% for row in messages %}
+    <tr>
+        <td>
+          {% if row.is_read == 0 %}
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+          {% else %}
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          {% endif %}
+            </td>
+          
+        <td>
+            {% if row.is_read == 0 %}
+        <a href="{{ url('messages_view', {'id': row.id}) }}"><b>{{ row.title }}</b></a>
+            {% else %}
+        <a href="{{ url('messages_view', {'id': row.id}) }}">{{ row.title }}</a>
+        {% endif %}
+            </td>
+
+        <td>{{ row.login }}</td>
+        <td>{{ row.date }}</td>
+    </tr>        
+        {% endfor %}
+      </table>
+    </div>
+        </div>
+{% endblock %}
+
+{% block others %}
+{% endblock %}

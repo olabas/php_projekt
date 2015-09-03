@@ -1,0 +1,87 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'Offers'|trans }} {% endblock %}
+
+{% block filter %}
+{% endblock %}
+
+{% block content %}
+ <div class="page-header header">
+        <h1> {{ 'Offers'|trans }} <small> {{ post.category }} / {{ post.city }} </small></h1>
+    </div>
+     <div class="line-separator"></div>
+	{% if post|length > 0 %}
+			<div class="post panels">
+			<div class="panel panel-default contain">
+				<div class="panel-heading">
+				    <h3 class="panel-title title">{{ post.title }}</h3>
+	  			</div>
+				<div class="panel-body profile">
+					<div class="row post-view"> 
+
+					<div class="col-md-7">
+						<p>{{ 'Date'|trans }}: {{ post.post_date }}</p>	
+						<div class="line-separator"></div>
+						<p class="content_preview"> {{ post.content }}</p>
+						<div class="line-separator"></div>
+	 					<p> <b> {{ 'Price'|trans }}: </b> {{ post.price }} {{ 'PLN per hour'|trans }}
+				    </div>
+
+					<div class="col-md-5">
+	        			<img style="display: block; margin: 0 auto" src="http://www.taneczne-wieczory.com.pl/img/default.png" alt="Smiley face" height="200" width="200">
+	                    <p> <b>{{ 'Login'|trans }}: </b> {{ post.login }} </p>
+	                    <p> <b>{{ 'Name'|trans }}: </b> {{ post.name }} </p>
+	                    <p> <b>{{ 'Surname'|trans }}: </b> {{ post.surname }} </p>
+	 	                <p> <b>{{ 'E-mail'|trans }}: </b> {{ post.email }} </p>
+	                    <p> <b>{{ 'Phone number'|trans }}: </b> {{ post.phone_number }} </p>   
+	                    <a href="{{ url('messages_send', {'id': post.user_id})}}" class="btn btn-primary message" type="button">
+  						<span class="badge message"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+  						</span>
+						{{ 'Send a message'|trans }} </a> 
+	        		</div>
+	        		</div>
+<div class="line-separator"></div>
+	        	<div class="row">
+	        		  <div class="panel panel-default dates">
+        <div class="panel-heading">
+            <h3 class="panel-title title">{{ 'Add a comment'|trans }} </h3>
+        </div>
+	        		<div class="col-md-12">
+	       				<form action="{{ url('posts_view', {'id': post.id}) }}" method="post" class="panel-body add-body">
+	        		    
+                        	    {{ form_errors(form.content) }}
+                            	{{ form_label(form.content) }}
+                            	{{ form_widget(form.content) }}
+                        	<br>
+                       		<button class="btn btn-primary">{{ 'Send'|trans }}</button>
+                       		{{ form_rest(form) }}
+                  		  		
+
+		       				{% for row in comments %}
+                				<div class="panel panel-default">
+									<div class="panel-heading">
+										{{ row.login }} {{ row.comment_date }}
+									</div>
+									<div class="panel-body">
+				           				{{ row.content }}
+           							</div>
+	               				</div>	
+           					{% endfor %}
+                    	</form>	
+	                </div>
+	                </div>
+	               
+	       			</div>
+	       			</div>
+	       			
+				</div>
+				</div>
+			</div>
+		</div>	
+	{% else %}
+		kupa
+    {% endif %}
+{% endblock %}
+
+{% block others %}
+{% endblock %}

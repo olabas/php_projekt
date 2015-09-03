@@ -41,7 +41,6 @@
 
 .profile {
 	font-size: 16px;
-	padding-top: 0px;
 	width: 100%;
 }
 
@@ -124,4 +123,35 @@
 
 .add-body {
 	padding: 15px 100px;
+	background-color: rgb(249, 250, 251) !important;	
+}
+
+.content_preview {
+	height: 200px;
+}
+
+.post_preview {
+	height: 100px;
+}
+
+.comment {
+	font-size: 5px !important;
+}
+
+.post-view {
+	margin-bottom: 50px !important; 
+}
+
+.message {
+	background-color: #F9FAFB;
+	color: #940000;
+	border-color: #D8D9DC;
+}
+
+.dates {
+	background-color: #F9FAFB !important;	
+}
+
+.index {
+	padding-top: 70px;
 }

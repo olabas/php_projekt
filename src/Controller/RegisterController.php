@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Auth controller.
+ * Register controller.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
 
 namespace Controller;
@@ -17,9 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Form\RegisterForm;
 
 /**
- * Class AuthController.
+ * Class RegisterController.
  *
  * @package Controller
+ * @extends BaseController
  * @implements ControllerProviderInterface
  */
 class RegisterController extends BaseController implements ControllerProviderInterface
@@ -29,7 +31,7 @@ class RegisterController extends BaseController implements ControllerProviderInt
      *
      * @access public
      * @param Silex\Application $app Silex application
-     * @return AlbumsController Result
+     * @return RegisterController Result
      */
     public function connect(Application $app)
     {
@@ -41,7 +43,7 @@ class RegisterController extends BaseController implements ControllerProviderInt
     }
 
     /**
-     * Login action.
+     * Register action.
      *
      * @access public
      * @param Silex\Application $app Silex application
@@ -61,15 +63,11 @@ class RegisterController extends BaseController implements ControllerProviderInt
 
         $form->handleRequest($request);
 
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $data=$form->getData();
-            if($data['password']!=$data['repeat_password'])
-            {
+            if ($data['password']!=$data['repeat_password']) {
                 $error = $app['translator']->trans('Passwords do not match').'.';
-            }
-            else
-            {
+            } else {
                 $model=new UsersModel($app);
 
                 try {
@@ -94,7 +92,7 @@ class RegisterController extends BaseController implements ControllerProviderInt
                         .'.';
                     $view['form']=$form->createView();
                     return $app['twig']->render('register/register.twig', $view);
-                } catch (UsernameNotUniqueException $e){
+                } catch (UsernameNotUniqueException $e) {
                     $error = $app['translator']->trans('Username')
                         .': '
                         .$data['login']
@@ -111,5 +109,3 @@ class RegisterController extends BaseController implements ControllerProviderInt
         return $app['twig']->render('register/register.twig', $view);
     }
 }
-
-

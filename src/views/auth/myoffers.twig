@@ -1,6 +1,6 @@
 {% extends 'base.twig' %}
 
-{% block title %}Baza Korepetycji - Ogłoszenia{% endblock %}
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'My profile'|trans }} {% endblock %}
 
 {% block filter %}
 {% endblock %}
@@ -24,7 +24,6 @@
                         <div class="jumbotron offers">
                             <p><b> {{ 'Added by'|trans }} {{ row.login }}</b></p>
                             <p> {{ 'Category'|trans }} {{ row.category }}</p>
-                            <p> {{ 'State'|trans }} {{ row.state }}</p>
                             <p> {{ 'City'|trans }} {{ row.city }}</p>
                         </div></div>
                     <div class="col-md-2">
@@ -35,7 +34,7 @@
                 </div>
             </div>
             <div class="panel-footer footer">
-                <a class="btn btn-primary btn-lg button" href="#" role="button"> {{ 'Learn more'|trans }} </a>
+                <a class="btn btn-primary btn-lg button" href="{{ url('offers_view', {'id': row.id})}}" role="button"> {{ 'Learn more'|trans }} </a>
             </div>
     </div>
     {% endfor %}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Signed in model.
+ * Messages model.
  *
  * @link http://wierzba.wzks.uj.edu.pl/13_bassara
  * @author Aleksandra Bassara <olabassara@gmail.com>
@@ -13,14 +13,13 @@ namespace Model;
 use Doctrine\DBAL\DBALException;
 use Silex\Application;
 
-    /**
-     * Class SignedInModel.
-     *
-     * @package Model
-     * @use Silex\Application
-     * @use Doctrine\DBAL\DBALException;
-     */
-class SignedInModel
+/**
+ * Class AlbumsModel.
+ *
+ * @package Model
+ * @use Silex\Application
+ */
+class MessagesModel
 {
     /**
      * Db object.
@@ -30,7 +29,13 @@ class SignedInModel
      */
     protected $db;
 
+    /**
+     * Security object.
+     *
+     * @access protected
+     */
     protected $security;
+
 
     /**
      * Object constructor.
@@ -49,7 +54,7 @@ class SignedInModel
      * Gets online username.
      *
      * @access public
-     * @return array User
+     * @return array $user User's data
      */
     public function getOnlineUsername()
     {
@@ -61,100 +66,98 @@ class SignedInModel
     }
 
     /**
-     * Gets user
+     * Gets messages.
      *
      * @access public
      * @return array Result
      */
-    public function getUser()
-    {
-        $login = $this -> getOnlineUsername();
-        $query = 'SELECT * FROM users WHERE login = :login';
-        $statement = $this->app['db']->prepare($query);
-        $statement->bindValue('login', $login, \PDO::PARAM_STR);
-        $statement->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-        return !$result ? array() : current($result);
-    }
-
-    /**
-     * Gets all albums.
-     *
-     * @access public
-     * @return array Result
-     */
-    public function getUsersOffers()
+    public function getMessages()
     {
         $login = $this -> getOnlineUsername();
         $query = '
             SELECT 
-                posts.id, cities.city, categories.category, 
-                posts.title, posts.content, 
-                posts.post_date, posts.price, 
-                users.login 
+                messages.id, messages.recipient_id, users.login, 
+                messages.title, messages.content, messages.date, 
+                messages.is_read
             FROM 
+                messages 
+            INNER JOIN 
                 users 
-            INNER JOIN 
-                posts 
             ON 
-                (users.id=posts.user_id) 
-            INNER JOIN 
-                cities 
-            ON 
-                (cities.id=posts.city_id) 
-            INNER JOIN 
-                categories 
-            ON 
-                (categories.id=posts.category_id) 
+                (users.id=messages.recipient_id) 
             WHERE 
                 login = :login
+            ORDER BY
+                messages.date
+            DESC
             ';
         $statement = $this->app['db']->prepare($query);
         $statement->bindValue('login', $login, \PDO::PARAM_STR);
         $statement->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll();
         return !$result ? array() : $result;
     }
 
     /**
-     * Gets all albums.
+     * Send message
      *
      * @access public
-     * @param integer $id User's id
+     * @param array $message Message's data
+     * @return mixed Result
+     */
+    public function sendMessage($message)
+    {
+        return $this->db->insert('messages', $message);
+    }
+
+
+    /**
+     * Gets message.
+     *
+     * @access public
      * @return array Result
      */
-    public function getOffer($id)
+    public function getMessage($id)
     {
         if (($id != '') && ctype_digit((string)$id)) {
             $query = '
                 SELECT 
-                    posts.id, cities.city, categories.category, 
-                posts.title, posts.content, 
-                posts.post_date, posts.price, posts.user_id,
-                users.login, users.name, users.surname, users.email, 
-                users.phone_number 
+                    messages.id, messages.title, messages.content, 
+                    messages.date, messages.recipient_id,
+                    messages.sender_id, messages.is_read, users.login, 
+                    users.name, users.surname, users.address,
+                    users.email, users.phone_number 
                 FROM
-                    posts
-                INNER JOIN
-                    categories
-                ON
-                    categories.id = posts.category_id
-                INNER JOIN
-                    cities
-                ON
-                    cities.id = posts.city_id
+                    messages
                 INNER JOIN
                     users
                 ON
-                    users.id = posts.user_id
+                    users.id = messages.recipient_id
                 WHERE
-                    posts.id = :id
+                    messages.id = :id
                 ';
             $statement = $this->db->prepare($query);
             $statement->bindValue('id', $id, \PDO::PARAM_INT);
             $statement->execute();
             $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             return !$result ? array() : current($result);
+        } else {
+            return array();
+        }
+    }
+
+    /**
+     * Change message status.
+     *
+     * @access public
+     * @param array $message Message's data
+     * @return mixed Result
+     */
+    public function changeMessageStatus($message)
+    {
+        if (($message['id'] != '') && ctype_digit((string)$message['id'])) {
+            $data['is_read'] = 1;
+            return $this->db->update('messages', $data, array('id' => $message['id']));
         } else {
             return array();
         }

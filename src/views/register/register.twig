@@ -1,11 +1,11 @@
 {% extends 'base.twig' %}
 
-{% block title %}Baza Korepetycji - Rejestracja{% endblock %}
+{% block title %} {{ 'Find your teacher'|trans }} {% endblock %}
 
 {% block content %}
 <div class="panel panel-default contain">
     <div class="panel-heading">
-        <h3 class="panel-title title">Panel rejestracji</h3>
+        <h3 class="panel-title title"> {{ 'Registration panel'|trans }} </h3>
     </div>
     <div class="panel-body">
     <form action="{{ path('register_register') }}" method="post" class="form center-block parts">

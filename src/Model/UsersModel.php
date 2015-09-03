@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Users model.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
 
 namespace Model;
@@ -17,9 +18,11 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 /**
  * Class Users.
  *
- * @category Epi
  * @package Model
  * @use Silex\Application
+ * @use Doctrine\DBAL\DBALException
+ * @use Symfony\Component\Security\Core\Exception\UnsupportedUserException
+ * @use Symfony\Component\Security\Core\Exception\UsernameNotFoundException
  */
 class UsersModel
 {
@@ -51,7 +54,7 @@ class UsersModel
      * @access public
      * @param string $login User login
      * @throws UsernameNotFoundException
-     * @return array Result
+     * @return array 
      */
     public function loadUserByLogin($login)
     {
@@ -114,7 +117,7 @@ class UsersModel
     }
 
     /**
-     * Gets user roles by User ID.
+     * Gets user roles by User id.
      *
      * @access public
      * @param integer $userId User ID
@@ -150,20 +153,35 @@ class UsersModel
         }
     }
 
-     public function addUser($user)
-     {
-         var_dump($user);
-         if($this->existsUser($user['login'])){
+    /**
+     * Add user.
+     *
+     * @param array $user User's data
+     * @access public
+     * @return mixed Result
+     */
+    public function addUser($user)
+    {
+        var_dump($user);
+        if ($this->existsUser($user['login'])) {
             throw new UsernameNotUniqueException(
                 $this->trans->trans('Username')
                 .$user['login']
                 .' '
                 .$this->trans->trans('is not unique')
-                .'.');
-         }
-         $this->db->insert('users', $user);
-     }
+                .'.'
+            );
+        }
+        $this->db->insert('users', $user);
+    }
 
+    /**
+     * Exists user.
+     *
+     * @param string $login User's login
+     * @access public
+     * @return Result
+     */
     public function existsUser($login)
     {
         $query='SELECT * FROM `users` WHERE `users`.`login` LIKE :login';
@@ -173,6 +191,33 @@ class UsersModel
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
         return $result && count($result);
+    }
 
+    /**
+     * Get user.
+     *
+     * @param integer $id User's data
+     * @access public
+     * @return array Result
+     */
+    public function getUser($id)
+    {
+        if (($id != '') && ctype_digit((string)$id)) {
+            $query = '
+                SELECT
+                    *
+                FROM
+                    users
+                WHERE
+                    id = :id
+                ';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue('id', $id, \PDO::PARAM_INT);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return !$result ? array() : current($result);
+        } else {
+            return array();
+        }
     }
 }

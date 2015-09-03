@@ -1,0 +1,57 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'Messages'|trans }} {% endblock %}
+
+{% block filter %}
+{% endblock %}
+
+{% block content %}
+ <div class="page-header header">
+        <h1> {{ 'My profile'|trans }} <small> {{ 'Messages'|trans }} </small></h1>
+    </div>
+     <div class="line-separator"></div>
+  {% if message|length > 0 %}
+      <div class="post panels">
+      <div class="panel panel-default contain">
+        <div class="panel-heading">
+            <h3 class="panel-title title">{{ message.title }}</h3>
+          </div>
+        <div class="panel-body profile">
+          <div class="row post-view"> 
+
+          <div class="col-md-7">
+            <p>{{ 'Date'|trans }}: {{ message.date }}</p> 
+            <div class="line-separator"></div>
+            <p class="content_preview"> {{ message.content }}</p>
+          </div>
+        <div class="col-md-5">
+                    <p class="text-center"><b>NADAWCA</b><p>
+                <img style="display: block; margin: 0 auto" src="http://www.taneczne-wieczory.com.pl/img/default.png" alt="Smiley face" height="200" width="200">
+                      <p> <b>{{ 'Login'|trans }}: </b> {{ message.login }} </p>
+                      <p> <b>{{ 'Name'|trans }}: </b> {{ message.name }} </p>
+                      <p> <b>{{ 'Surname'|trans }}: </b> {{ message.surname }} </p>
+                      <p> <b>{{ 'Address'|trans }}: </b> {{ message.address }} </p>
+                    <p> <b>{{ 'E-mail'|trans }}: </b> {{ message.email }} </p>
+                      <p> <b>{{ 'Phone number'|trans }}: </b> {{ message.phone_number }} </p>   
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-md-12">
+                                    <a href="{{ url('messages_send', {'id': message.sender_id})}}" class="btn btn-block btn-primary message" type="button">
+              <span class="badge"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></span>
+            {{ 'Reply'|trans }} </a> 
+            </div>
+            </div>
+              </div>
+              
+        </div>
+        </div>
+      </div>
+    </div>  
+  {% else %}
+    kupa
+    {% endif %} 
+{% endblock %}
+
+{% block others %}
+{% endblock %}
