@@ -166,10 +166,6 @@ class PostsController extends BaseController implements ControllerProviderInterf
         $id = (int) $request->get('id', 0);
         $post = $postsModel->getPost($id);
 
-        var_dump($postsModel->getPost($id));
-
-        $signedInModel = new SignedInModel($app);
-        $signedIn = $signedInModel->getUser();
         // default values:
         if (count($post)) {
             $form = $app['form.factory']->createBuilder(new PostsForm($app), $post)
@@ -178,13 +174,20 @@ class PostsController extends BaseController implements ControllerProviderInterf
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                    $post = $form->getData();
-                    $postsModel = new PostsModel($app);
-                    $postsModel->addPost($post);
-                    return $app->redirect(
-                        $app['url_generator']->generate('index'),
-                        301
-                    );
+                $data = $form->getData();
+                $post = array(
+                    'city_id' => $data['city_id'],
+                    'category_id' => $data['category_id'],
+                    'title' => $data['title'],
+                    'content' => $data['content'],
+                    'price' => $data['price']
+                );
+                $postsModel = new PostsModel($app);
+                $postsModel->updatePost($post, $id);
+                return $app->redirect(
+                    $app['url_generator']->generate('index'),
+                    301
+                );
             }
 
             $this->view['id'] = $id;

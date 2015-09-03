@@ -8,26 +8,24 @@
 
     </div>
     <div class="line-separator"></div>
-    {% for row in users %}
         <div class="panel panel-default contain">
         <div class="panel-heading title">{{ 'Welcome to the User`s profile panel!'|trans }} !</div>
         <div class="panel-body">
-        <img style="display: block; margin: 0 auto" src="http://www.taneczne-wieczory.com.pl/img/default.png" alt="Smiley face" height="250" width="250">
+        <img style="display: block; margin: 0 auto" src="{{ app.request.basepath }}/assets/img/profile.png" alt="Smiley face" height="250" width="250">
 
-        <div class="row">
+        <div class="user">
             <div class="col-md-12">
                 <div class="jumbotron profile">
                     <ul class="list-group">
-                        <li class="list-group-item title"> <b>{{ row.login }} </b></li>
-                        <li class="list-group-item"><p><b> {{ 'Name'|trans }} </b> {{ row.name }} </p></li>
-                        <li class="list-group-item"><p><b> {{ 'Surname'|trans }}</b> {{ row.surname }} </p></li>
-                        <li class="list-group-item"><p><b> {{ 'Address'|trans }}: </b> {{ row.address }} </p></li>
-                        <li class="list-group-item"><p><b> {{ 'E-mail'|trans }} </b> {{ row.email }} </p></li>
-                        <li class="list-group-item"><p><b> {{ 'Phone number'|trans }} </b> {{ row.phone_number }} </p></li>
+                        <li class="list-group-item title"> <b>{{ user.login }} </b></li>
+                        <li class="list-group-item"><p><b> {{ 'Name'|trans }} </b> {{ user.name }} </p></li>
+                        <li class="list-group-item"><p><b> {{ 'Surname'|trans }}</b> {{ user.surname }} </p></li>
+                        <li class="list-group-item"><p><b> {{ 'Address'|trans }}: </b> {{ user.address }} </p></li>
+                        <li class="list-group-item"><p><b> {{ 'E-mail'|trans }} </b> {{ user.email }} </p></li>
+                        <li class="list-group-item"><p><b> {{ 'Phone number'|trans }} </b> {{ user.phone_number }} </p></li>
                     </ul>
                 </div>
             </div>
         </div>
         </div>
-    {% endfor %}
 {% endblock %}

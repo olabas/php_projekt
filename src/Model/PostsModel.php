@@ -118,19 +118,14 @@ class PostsModel
     * @param array $album Album data
     * @retun mixed Result
     */
-
     public function addPost($post)
     {
-        if (isset($post['id'])
-            && ($post['id'] != '')
-            && ctype_digit((string)$post['id'])) {
-            // update record
-            $id = $post['id'];
-            unset($post['id']);
-            return $this->db->update('posts', $post, array('id' => $id));
-        } else {
-            // add new record
-            return $this->db->insert('posts', $post);
-        }
+        return $this->db->insert('posts', $post);
+    }
+
+    public function updatePost($post, $id)
+    {
+        var_dump($post);
+        return $this->db->update('posts', $post, array('id' => $id));
     }
 }

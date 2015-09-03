@@ -59,7 +59,7 @@ class DataController extends BaseController implements ControllerProviderInterfa
     {
         $view = parent::getView();
         $signedInModel = new SignedInModel($app);
-        $view['users'] = $signedInModel->getUser();
+        $view['user'] = $signedInModel->getUser();
         return $app['twig']->render('auth/data.twig', $view);
     }
 
