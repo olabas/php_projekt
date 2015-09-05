@@ -41,20 +41,45 @@ class PostsForm extends AbstractType
 
     protected $app;
 
+    /**
+     * Object constructor.
+     *
+     * @access public
+     * @param Silex\Application $app Silex application
+     */
     public function __construct(Application $app)
     {
         $this->app=$app;
     }
 
+    /**
+     * Form builder.
+     *
+     * @access public
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     *
+     * @return FormBuilderInterface
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
+            'id',
+            'hidden',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank()
+                ),
+                'label' => false
+            )
+        )
+        ->add(
             'title',
             'text',
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8, 'max' => 16))
+                    new Assert\Length(array('min' => 5, 'max' => 45))
                 ),
                 'attr' => array(
                     'class' => 'form-control parts'
@@ -68,7 +93,7 @@ class PostsForm extends AbstractType
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 8))
+                    new Assert\Length(array('min' => 5))
                 ),
                 'attr' => array(
                     'class' => 'form-control textarea',
@@ -130,6 +155,7 @@ class PostsForm extends AbstractType
      * Gets category name.
      *
      * @access private
+     * @param Silex\Application $app Silex application
      *
      * @return array
      */
@@ -145,6 +171,7 @@ class PostsForm extends AbstractType
      * Gets city name.
      *
      * @access private
+     * @param Silex\Application $app Silex application
      *
      * @return array
      */

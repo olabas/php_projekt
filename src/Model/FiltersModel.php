@@ -69,7 +69,7 @@ class FiltersModel
      * Choice category
      *
      * @access public
-     * @param array $categories Categories name
+     * @param array $categories Category's name
      * @return array
      */
     public function choiceCategory($categories)
@@ -84,7 +84,7 @@ class FiltersModel
      * Choice city.
      *
      * @access public
-     * @param array $cities Cities name
+     * @param array $cities City's name
      * @return array
      */
     public function choiceCity($cities)

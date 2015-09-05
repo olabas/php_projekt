@@ -1,11 +1,13 @@
 <?php
+
 /**
  * User provider.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
+
 
 namespace Provider;
 
@@ -15,13 +17,11 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-
 use Model\UsersModel;
 
 /**
  * Class UserProvider.
  *
- * @category Epi
  * @package Provider
  * @use Silex\Application
  * @use Symfony\Component\Security\Core\User\UserProviderInterface

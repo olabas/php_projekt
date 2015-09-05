@@ -55,6 +55,10 @@ class PostsController extends BaseController implements ControllerProviderInterf
         $postsController->match('/edit/{id}', array($this, 'editAction'))
             ->bind('posts_edit');
         $postsController->match('/edit/{id}/', array($this, 'editAction'));
+         $postsController->post('/delete/{id}', array($this, 'deleteAction'));
+        $postsController->match('/delete/{id}', array($this, 'deleteAction'))
+            ->bind('posts_delete');
+        $postsController->match('/delete/{id}/', array($this, 'deleteAction'));
 
         return $postsController;
     }
@@ -183,7 +187,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
                     'price' => $data['price']
                 );
                 $postsModel = new PostsModel($app);
-                $postsModel->updatePost($post, $id);
+                $postsModel->updatePost($post);
                 return $app->redirect(
                     $app['url_generator']->generate('index'),
                     301
@@ -201,4 +205,56 @@ class PostsController extends BaseController implements ControllerProviderInterf
         }
         return $app['twig']->render('posts/edit.twig', $this->view);
     }
+
+    /**
+     * Delete action.
+     *
+     * @access public
+     * @param Silex\Application $app Silex application
+     * @param Symfony\Component\HttpFoundation\Request $request Request object
+     * @return string Output
+     */
+    public function deleteAction(Application $app, Request $request)
+    {
+        $postsModel = new PostsModel($app);
+        $id = (int) $request->get('id', 0);
+        $post = $postsModel->getPost($id);
+        var_dump($id);
+
+        echo 'Bleeeeeeeeee';
+
+        if (count($post)) {
+
+            $form = $app['form.factory']
+            ->createBuilder(new PostsForm($app), $post)->getForm();
+
+            $form->handleRequest($request);
+echo 'Bleeeeeeeeee2';
+            if ($form->isValid()) {
+                $postsModel = new PostsModel($app);
+                $postsModel->deletePost($id);
+                $app['session']->getFlashBag()->add(
+                    'message', array(
+                        'type' => 'success', 'content' => $app['translator']->trans('Album deleted.')
+                    )
+                );
+                echo 'Bleeeeeeeeee3';
+                return $app->redirect(
+                    $app['url_generator']->generate('index'), 301
+                );
+            }
+echo 'Bleeeeeeeeee4';
+            $this->_view['form'] = $form->createView();
+            $this->_view['id'] = $id;
+
+        } else {
+            echo 'Bleeeeeeeeee5';
+            return $app->redirect(
+                $app['url_generator']->generate('posts_add'), 301
+            );
+        }
+
+        return $app['twig']->render('posts/delete.twig', $this->_view);
+    }
+
 }

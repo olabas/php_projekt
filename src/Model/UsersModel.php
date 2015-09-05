@@ -122,7 +122,7 @@ class UsersModel
      * @access public
      * @param integer $userId User ID
      *
-     * @return array Result
+     * @return integer $roles Role
      */
     public function getUserRoles($userId)
     {

@@ -15,6 +15,7 @@ use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Model\SignedInModel;
+use Form\RegisterForm;
 
 /**
  * Class DataController.
@@ -43,6 +44,10 @@ class DataController extends BaseController implements ControllerProviderInterfa
         $dataController->match('/view/{id}', array($this, 'viewOfferAction'))
             ->bind('offers_view');
         $dataController->match('/view/{id}/', array($this, 'viewOfferAction'));
+         $dataController->post('/edit/{id}', array($this, 'editAction'));
+        $dataController->match('/edit/{id}', array($this, 'editAction'))
+            ->bind('users_edit');
+        $dataController->match('/edit/{id}/', array($this, 'editAction'));
 
         return $dataController;
     }
@@ -61,6 +66,57 @@ class DataController extends BaseController implements ControllerProviderInterfa
         $signedInModel = new SignedInModel($app);
         $view['user'] = $signedInModel->getUser();
         return $app['twig']->render('auth/data.twig', $view);
+    }
+
+/**
+     * Edit action.
+     *
+     * @access public
+     * @param Silex\Application $app Silex application
+     * @param Symfony\Component\HttpFoundation\Request $request Request object
+     * @return string Output
+     */
+    public function editAction(Application $app, Request $request)
+    {
+
+        $user = parent::getView();
+        $signedInModel = new SignedInModel($app);
+        $user['user'] = $signedInModel->getUser();
+        // default values:
+        if (count($user)) {
+            $form = $app['form.factory']->createBuilder(new RegisterForm($app), $user)
+                ->getForm();
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $user = array(
+                    'login' => $data['login'],
+                    'name' => $data['name'],
+                    'surname' => $data['surname'],
+                    'email' => $data['email'],
+                    'phone_number' => $data['phone_number'],
+                    'password' => $data['password'],
+                );
+                $signedinModel = new SignedInModel($app);
+                $signedinModel->updateProfile($user, $id);
+                return $app->redirect(
+                    $app['url_generator']->generate('index'),
+                    301
+                );
+            }
+
+            $this->view['login'] = $login;
+            $this->view['form'] = $form->createView();
+
+        } else {
+            return $app->redirect(
+                $app['url_generator']->generate('index'),
+                301
+            );
+        }
+        return $app['twig']->render('auth/edit.twig', $this->view);
     }
 
     /**

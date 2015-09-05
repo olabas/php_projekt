@@ -69,7 +69,7 @@ class SignedInModel
     public function getUser()
     {
         $login = $this -> getOnlineUsername();
-        $query = 'SELECT * FROM users WHERE login = :login';
+        $query = 'SELECT id, login, password, name, surname, email, phone_number FROM users WHERE login = :login';
         $statement = $this->app['db']->prepare($query);
         $statement->bindValue('login', $login, \PDO::PARAM_STR);
         $statement->execute();
@@ -78,7 +78,7 @@ class SignedInModel
     }
 
     /**
-     * Gets all albums.
+     * Gets user's offers.
      *
      * @access public
      * @return array Result
@@ -117,7 +117,7 @@ class SignedInModel
     }
 
     /**
-     * Gets all albums.
+     * Gets offer.
      *
      * @access public
      * @param integer $id User's id
@@ -158,5 +158,11 @@ class SignedInModel
         } else {
             return array();
         }
+    }
+
+        public function updateProfile($user, $id)
+    {
+        var_dump($user);
+        return $this->db->update('users', $user, array('id' => $id));
     }
 }

@@ -12,13 +12,12 @@ namespace Model;
 
 use Silex\Application;
 
-/**
- * Class AlbumsModel.
- *
- * @category Epi
- * @package Model
- * @use Silex\Application
- */
+    /**
+     * Class PostsnModel.
+     *
+     * @package Model
+     * @use Silex\Application
+     */
 class PostsModel
 {
     /**
@@ -41,7 +40,7 @@ class PostsModel
     }
 
     /**
-     * Gets all albums.
+     * Gets all.
      *
      * @access public
      * @return array Result
@@ -74,6 +73,13 @@ class PostsModel
         return !$result ? array() : $result;
     }
 
+    /**
+     * Gets Post.
+     *
+     * @access public
+     * @param integer $id Post's data
+     * @return array Result
+     */
     public function getPost($id)
     {
         if (($id != '') && ctype_digit((string)$id)) {
@@ -112,10 +118,10 @@ class PostsModel
     }
 
     /**
-    * Save album.
+    * Add post.
     *
     * @access public
-    * @param array $album Album data
+    * @param array $post Post's data
     * @retun mixed Result
     */
     public function addPost($post)
@@ -123,9 +129,30 @@ class PostsModel
         return $this->db->insert('posts', $post);
     }
 
-    public function updatePost($post, $id)
+    /**
+    * Update post.
+    *
+    * @access public
+    * @param array $post Post's data
+    * @param integer $id Post's id
+    * @retun mixed Result
+    */
+    public function updatePost($post)
     {
         var_dump($post);
         return $this->db->update('posts', $post, array('id' => $id));
+    }
+
+ 	/**
+    * Delete post.
+    *
+    * @access public
+    * @param array $post Post's data
+    * @param integer $id Post's id
+    * @retun mixed Result
+    */
+    public function deletePost($id)
+    {
+        return $this->db->delete('posts', array('id' => $id));
     }
 }

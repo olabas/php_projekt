@@ -42,7 +42,7 @@ $app->register(
         'security.access_rules' => array(
             array('^/$', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/auth/login$', 'IS_AUTHENTICATED_ANONYMOUSLY'),
-            array('^/register/register$', 'IS_AUTHENTICATED_ANONYMOUSLY'),
+            array('^/register.*$', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/.*$', 'ROLE_ADMIN')
         ),
         'security.role_hierarchy' => array(
