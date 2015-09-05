@@ -137,7 +137,7 @@ class PostsModel
     * @param integer $id Post's id
     * @retun mixed Result
     */
-    public function updatePost($post)
+    public function updatePost($post, $id)
     {
         var_dump($post);
         return $this->db->update('posts', $post, array('id' => $id));

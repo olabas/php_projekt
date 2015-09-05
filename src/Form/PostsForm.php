@@ -64,16 +64,6 @@ class PostsForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
-            'id',
-            'hidden',
-            array(
-                'constraints' => array(
-                    new Assert\NotBlank()
-                ),
-                'label' => false
-            )
-        )
-        ->add(
             'title',
             'text',
             array(

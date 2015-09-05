@@ -9,9 +9,6 @@
     </h1>
     <h4>Are you sure?</h4>
     <form action="{{ path('posts_delete', {'id': id }) }}" method="post">
-       	{{ form_errors(form.id) }}
-       	{{ form_label(form.id) }}
-       	{{ form_widget(form.id) }}
         <a href="{{ url('index') }}" class="btn btn-primary">{{ 'NO'|trans }}</a>
         <input class="btn btn-inverse" type="submit" name="submit" value="{{ 'YES'|trans }}" />
     </form>

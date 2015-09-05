@@ -169,6 +169,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
         $postsModel = new PostsModel($app);
         $id = (int) $request->get('id', 0);
         $post = $postsModel->getPost($id);
+        $view = parent::getView();
 
         // default values:
         if (count($post)) {
@@ -187,15 +188,15 @@ class PostsController extends BaseController implements ControllerProviderInterf
                     'price' => $data['price']
                 );
                 $postsModel = new PostsModel($app);
-                $postsModel->updatePost($post);
+                $postsModel->updatePost($post, $id);
                 return $app->redirect(
                     $app['url_generator']->generate('index'),
                     301
                 );
             }
 
-            $this->view['id'] = $id;
-            $this->view['form'] = $form->createView();
+            $view['id'] = $id;
+            $view['form'] = $form->createView();
 
         } else {
             return $app->redirect(
@@ -203,7 +204,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
                 301
             );
         }
-        return $app['twig']->render('posts/edit.twig', $this->view);
+        return $app['twig']->render('posts/edit.twig', $view);
     }
 
     /**
@@ -216,45 +217,25 @@ class PostsController extends BaseController implements ControllerProviderInterf
      */
     public function deleteAction(Application $app, Request $request)
     {
-        $postsModel = new PostsModel($app);
         $id = (int) $request->get('id', 0);
-        $post = $postsModel->getPost($id);
-        var_dump($id);
 
-        echo 'Bleeeeeeeeee';
-
-        if (count($post)) {
-
-            $form = $app['form.factory']
-            ->createBuilder(new PostsForm($app), $post)->getForm();
-
-            $form->handleRequest($request);
-echo 'Bleeeeeeeeee2';
-            if ($form->isValid()) {
-                $postsModel = new PostsModel($app);
-                $postsModel->deletePost($id);
-                $app['session']->getFlashBag()->add(
-                    'message', array(
-                        'type' => 'success', 'content' => $app['translator']->trans('Album deleted.')
-                    )
-                );
-                echo 'Bleeeeeeeeee3';
-                return $app->redirect(
-                    $app['url_generator']->generate('index'), 301
-                );
-            }
-echo 'Bleeeeeeeeee4';
-            $this->_view['form'] = $form->createView();
-            $this->_view['id'] = $id;
-
-        } else {
-            echo 'Bleeeeeeeeee5';
+        if($request->getMethod() == $request::METHOD_POST)
+        {
+            $postsModel = new PostsModel($app);
+            $postsModel->deletePost($id);
+            $app['session']->getFlashBag()->add(
+                'message', array(
+                    'type' => 'success', 'content' => $app['translator']->trans('Post deleted.')
+                )
+            );
             return $app->redirect(
-                $app['url_generator']->generate('posts_add'), 301
+                $app['url_generator']->generate('index'), 301
             );
         }
 
-        return $app['twig']->render('posts/delete.twig', $this->_view);
+        $view = parent::getView();
+        $view['id'] = $id;
+        return $app['twig']->render('posts/delete.twig', $view);
     }
 
 }
