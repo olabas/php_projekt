@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Model\SignedInModel;
 use Form\RegisterForm;
+use Form\UpdateProfileForm;
 
 /**
  * Class DataController.
@@ -79,44 +80,45 @@ class DataController extends BaseController implements ControllerProviderInterfa
     public function editAction(Application $app, Request $request)
     {
 
-        $user = parent::getView();
         $signedInModel = new SignedInModel($app);
-        $user['user'] = $signedInModel->getUser();
+        $id = (int) $request->get('id', 0);
+        $user= $signedInModel->getUser($id);
         // default values:
+        echo 'bleeeeee';
         if (count($user)) {
-            $form = $app['form.factory']->createBuilder(new RegisterForm($app), $user)
+            $form = $app['form.factory']->createBuilder(new UpdateProfileForm($app), $user)
                 ->getForm();
 
             $form->handleRequest($request);
-
+echo 'bleeeeee2';
             if ($form->isValid()) {
                 $data = $form->getData();
                 $user = array(
-                    'login' => $data['login'],
                     'name' => $data['name'],
                     'surname' => $data['surname'],
                     'email' => $data['email'],
                     'phone_number' => $data['phone_number'],
-                    'password' => $data['password'],
                 );
                 $signedinModel = new SignedInModel($app);
                 $signedinModel->updateProfile($user, $id);
+               echo 'bleeeeee3';
                 return $app->redirect(
                     $app['url_generator']->generate('index'),
                     301
                 );
             }
-
-            $this->view['login'] = $login;
+echo 'bleeeee4';
+            $this->view['id'] = $id;
             $this->view['form'] = $form->createView();
 
         } else {
+            echo 'bleeeee5';
             return $app->redirect(
                 $app['url_generator']->generate('index'),
                 301
             );
         }
-        return $app['twig']->render('auth/edit.twig', $this->view);
+        return $app['twig']->render('auth/update_profile.twig', $this->view);
     }
 
     /**

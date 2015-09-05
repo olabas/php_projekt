@@ -1,0 +1,48 @@
+
+{% extends 'base.twig' %}
+
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'Add an offer'|trans }} {% endblock %}
+
+{% block content %}
+ <div class="page-header header">
+        <h1> {{ 'Profile'|trans }} <small> {{ 'Change your password'|trans }} </small></h1>
+    </div>
+     <div class="line-separator"></div>
+    <div class="panel panel-default dates">
+        <form action="{{ path('users_edit', {'id': id }) }}" method="post" class="panel-body add-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="form center-block">
+
+                          <div class="form-group">
+                            {{ form_label(form.name) }}
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name) }}
+                        </div>
+
+                          <div class="form-group">
+                            {{ form_label(form.surname) }}
+                            {{ form_errors(form.surname) }}
+                            {{ form_widget(form.surname) }}
+                        </div>
+
+                            <div class="form-group">
+                            {{ form_label(form.email) }}
+                            {{ form_errors(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+
+                          <div class="form-group">
+                            {{ form_label(form.phone_number) }}
+                            {{ form_errors(form.phone_number) }}
+                            {{ form_widget(form.phone_number) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary">{{ 'Add an offer'|trans }}</button>
+
+        </form>
+    </div>
+{% endblock %}
+
