@@ -35,14 +35,7 @@
                     <nav class="collapse navbar-collapse navbar-right" role="navigation">
                       <ul class="nav navbar-nav">
                         {% block navbar_list %}
-                                <li>
-                                    <div class="input-group searching">
-                                        <input type="text" class="form-control searching-box" placeholder="{{ 'Search for...'|trans }}">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default searching-box" type="button">{{ 'Search'|trans }}</button>
-                                        </span>
-                                    </div><!-- /input-group -->
-                                </li>
+                               
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li>
                                     <a href="{{ url('posts_add') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add an offer'|trans }}</a>
@@ -90,7 +83,13 @@
     </div>
 
 </div>
-{#
+
+{% for flashMessage in app.session.getFlashBag.get('message') %}t
+    <div class="alert alert-{{ flashMessage.type }}" role="alert">
+        {{ flashMessage.content }}
+    </div>
+{% endfor %}
+
 {% if (info) %}
     <div class="alert alert-success alert-dismissible notification" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -114,7 +113,7 @@
 
 {% block others %}
 {{ error }}
-{% endblock %}#}
+{% endblock %}
 
   <!-- script references -->
     <script src="{{ app.request.basepath }}/assets/jquery/jquery-2.1.4.js"></script>

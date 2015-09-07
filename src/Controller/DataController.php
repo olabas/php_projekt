@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Model\SignedInModel;
 use Form\RegisterForm;
 use Form\UpdateProfileForm;
+use Form\UpdatePasswordForm;
 
 /**
  * Class DataController.
@@ -45,10 +46,14 @@ class DataController extends BaseController implements ControllerProviderInterfa
         $dataController->match('/view/{id}', array($this, 'viewOfferAction'))
             ->bind('offers_view');
         $dataController->match('/view/{id}/', array($this, 'viewOfferAction'));
-         $dataController->post('/edit/{id}', array($this, 'editAction'));
+         $dataController->match('/edit/{id}', array($this, 'editAction'));
         $dataController->match('/edit/{id}', array($this, 'editAction'))
             ->bind('users_edit');
         $dataController->match('/edit/{id}/', array($this, 'editAction'));
+        $dataController->match('/password/{id}/', array($this, 'PasswordAction'));
+        $dataController->match('/password/{id}', array($this, 'PasswordAction'))
+            ->bind('password_edit');
+
 
         return $dataController;
     }
@@ -82,15 +87,15 @@ class DataController extends BaseController implements ControllerProviderInterfa
 
         $signedInModel = new SignedInModel($app);
         $id = (int) $request->get('id', 0);
-        $user= $signedInModel->getUser($id);
+        $user= $signedInModel->getUser();
         // default values:
-        echo 'bleeeeee';
+
         if (count($user)) {
             $form = $app['form.factory']->createBuilder(new UpdateProfileForm($app), $user)
                 ->getForm();
 
             $form->handleRequest($request);
-echo 'bleeeeee2';
+
             if ($form->isValid()) {
                 $data = $form->getData();
                 $user = array(
@@ -101,25 +106,81 @@ echo 'bleeeeee2';
                 );
                 $signedinModel = new SignedInModel($app);
                 $signedinModel->updateProfile($user, $id);
-               echo 'bleeeeee3';
                 return $app->redirect(
-                    $app['url_generator']->generate('index'),
+                    $app['url_generator']->generate('auth_data'),
                     301
                 );
             }
-echo 'bleeeee4';
-            $this->view['id'] = $id;
-            $this->view['form'] = $form->createView();
+
+            $view = parent::getView();
+            $view['id'] = $id;
+            $view['form'] = $form->createView();
 
         } else {
-            echo 'bleeeee5';
+
             return $app->redirect(
                 $app['url_generator']->generate('index'),
                 301
             );
         }
-        return $app['twig']->render('auth/update_profile.twig', $this->view);
+        return $app['twig']->render('auth/update_profile.twig', $view);
     }
+
+
+
+/**
+     * Password edit action.
+     *
+     * @access public
+     * @param Silex\Application $app Silex application
+     * @param Symfony\Component\HttpFoundation\Request $request Request object
+     * @return string Output
+     */
+    public function passwordAction(Application $app, Request $request)
+    {
+        
+        $signedInModel = new SignedInModel($app);
+        $id = (int) $request->get('id', 0);
+        $password= $signedInModel->getActualPassword();
+
+        // default values:
+
+        if (count($password)) {
+            $form = $app['form.factory']->createBuilder(new UpdatePasswordForm($app), $password)
+                ->getForm();
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $data = $form->getData();
+                $data['password'] = $app['security.encoder.digest']->encodePassword($data['password'], '');
+                $password = array (
+                    'password' => $data['password']
+                );
+                                $signedinModel = new SignedInModel($app);
+
+                    $signedinModel->updatePassword($password, $id);
+                    return $app->redirect(
+                        $app['url_generator']->generate('auth_data'),
+                        301
+               
+                    );
+            }
+            
+
+            $view = parent::getView();
+            $view['id'] = $id;
+            $view['form'] = $form->createView();
+   } else {
+
+            return $app->redirect(
+                $app['url_generator']->generate('index'),
+                301
+            );
+        }
+        return $app['twig']->render('auth/update_password.twig', $view);
+}
+
 
     /**
      * Index offers action.

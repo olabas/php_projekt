@@ -6,10 +6,13 @@
  <div class="page-header header">
         <h1> {{ 'Offers'|trans }} <small> {{ 'Add an offer'|trans }} </small></h1>
     </div>
+
      <div class="line-separator"></div>
-    <div class="panel panel-default dates">
-        <form action="{{ path('posts_edit', {'id': id }) }}" method="post" class="panel-body add-body">
+        <div class="panel panel-default contain">
+        <div class="panel-heading title">{{ 'Update your'|trans }} post!</div>
+        <div class="panel-body">
             <div class="row">
+        <form action="{{ path('posts_edit', {'id': id }) }}" method="post" class="panel-body add-post">
                 <div class="col-md-9">
                     <div class="form center-block">
                         <div class="form-group">
@@ -22,12 +25,6 @@
                              {{ form_errors(form.content) }}
                              {{ form_label(form.content) }}
                              {{ form_widget(form.content) }}
-                        </div>
-
-                        <div class="form-group">
-                             {{ form_errors(form.price) }}
-                             {{ form_label(form.price) }}
-                             {{ form_widget(form.price) }}
                         </div>
                     </div>
                 </div>
@@ -43,11 +40,18 @@
                             {{ form_errors(form.city_id) }}
                             {{ form_widget(form.city_id) }}
                         </div>
+                         <div class="form-group">
+                             {{ form_errors(form.price) }}
+                             {{ form_label(form.price) }}
+                             {{ form_widget(form.price) }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <button class="btn btn-primary">{{ 'Add an offer'|trans }}</button>
+
+                <div class="row">
+            <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Edit'|trans }}">
             {{ form_rest(form) }}
+            </div>
         </form>
     </div>
 {% endblock %}

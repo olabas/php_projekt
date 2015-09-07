@@ -39,16 +39,11 @@ class UpdatePasswordForm extends AbstractType
 
     protected $app;
 
-    public function __construct(Application $app)
-    {
-        $this->app=$app;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
             'password',
-            'password',
+            'text',
              array(
                 'constraints' => array(
                     new Assert\NotBlank(),

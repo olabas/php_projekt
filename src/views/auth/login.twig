@@ -9,7 +9,9 @@
         </div>
         <div class="panel-body">
             <form action="{{ path('auth_login_check') }}" method="post" class="form center-block parts">
-            <div class="form-group"> {{ form_widget(form) }} </div>
+            <div class="form-group"> 
+                {{ form_widget(form) }}
+            </div>
             <button class="btn btn-primary button">{{ 'Sign in'|trans }}</button>
              </form>
         </div>

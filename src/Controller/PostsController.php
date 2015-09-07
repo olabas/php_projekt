@@ -108,7 +108,13 @@ class PostsController extends BaseController implements ControllerProviderInterf
             $data['user_id'] = $signedIn['id'];
             $postsModel = new PostsModel($app);
             $postsModel->addPost($data);
-        }
+             return $app->redirect(
+                    $app['url_generator']->generate(
+                        'index'
+                        ), 301
+                );
+            }
+        
         $view = parent::getView();
         $view['form'] = $form->createView();
         return $app['twig']->render('posts/add.twig', $view);
@@ -152,6 +158,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
 
         $view['form'] = $form->createView();
         $view['comments'] = $commentsModel->getAll($id);
+
         return $app['twig']->render('posts/view.twig', $view);
     }
 
@@ -181,6 +188,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
             if ($form->isValid()) {
                 $data = $form->getData();
                 $post = array(
+                    'id' => $data['id'],
                     'city_id' => $data['city_id'],
                     'category_id' => $data['category_id'],
                     'title' => $data['title'],
@@ -190,8 +198,10 @@ class PostsController extends BaseController implements ControllerProviderInterf
                 $postsModel = new PostsModel($app);
                 $postsModel->updatePost($post, $id);
                 return $app->redirect(
-                    $app['url_generator']->generate('index'),
-                    301
+                    $app['url_generator']->generate(
+                        'offers_view',
+                        array('id' => $id)
+                        ), 301
                 );
             }
 
@@ -229,7 +239,10 @@ class PostsController extends BaseController implements ControllerProviderInterf
                 )
             );
             return $app->redirect(
-                $app['url_generator']->generate('index'), 301
+                $app['url_generator']->generate(
+                    'offers_view',
+                     array('id' => $id)
+                ), 301
             );
         }
 

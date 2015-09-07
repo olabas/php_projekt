@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Posts form.
+ * Filters form.
  *
  * @link http://wierzba.wzks.uj.edu.pl/13_bassara
  * @author Aleksandra Bassara <olabassara@gmail.com>
@@ -18,7 +18,7 @@ use Model\FiltersModel;
 use Silex\Application;
 
 /**
- * Class PostsForm.
+ * Class FiltersForm.
  *
  * @package Form
  * @extends AbstractType
@@ -27,7 +27,7 @@ use Silex\Application;
  * @use Symfony\Component\OptionsResolver\OptionsResolverInterface
  * @use Symfony\Component\Validator\Constraints as Assert
  */
-class PostsForm extends AbstractType
+class FiltersForm extends AbstractType
 {
     /**
      * Form builder.
@@ -64,49 +64,7 @@ class PostsForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
-            'title',
-            'text',
-            array(
-                'constraints' => array(
-                    new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 5, 'max' => 45))
-                ),
-                'attr' => array(
-                    'class' => 'form-control parts'
-                ),
-                'label' => 'Tytuł'
-            )
-        )
-        ->add(
-            'content',
-            'textarea',
-            array(
-                'constraints' => array(
-                    new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 5))
-                ),
-                'attr' => array(
-                    'class' => 'form-control textarea',
-                ),
-                'label' => 'Treść'
-            )
-        )
-        ->add(
-            'price',
-            'text',
-            array(
-                'constraints' => array(
-                    new Assert\NotBlank(),
-                    new Assert\Length(array('min' => 2))
-                ),
-                'attr' => array(
-                    'class' => 'form-control'
-                ),
-                'label' => 'Cena'
-            )
-        )
-        ->add(
-            'category_id',
+            'category',
             'choice',
             array(
                 'attr' => array(
@@ -117,13 +75,24 @@ class PostsForm extends AbstractType
             )
         )
         ->add(
-            'city_id',
+            'city',
             'choice',
             array(
                 'attr' => array(
                     'class' => 'form-control small-parts',
                 ),
                 'choices' => $this->getCity($this->app),
+                'label' => 'Lokalizacja'
+            )
+        )
+        ->add(
+            'sexz',
+            'checkbox',
+            array(
+                'attr' => array(
+                    'class' => 'form-control small-parts',
+                ),
+                'data' => 'abcdef',
                 'label' => 'Lokalizacja'
             )
         );

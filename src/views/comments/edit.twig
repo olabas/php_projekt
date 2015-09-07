@@ -1,0 +1,32 @@
+{% extends 'base.twig' %}
+
+{% block title %} {{ 'Find your teacher'|trans }} / {{ 'Add an offer'|trans }} {% endblock %}
+
+{% block content %}
+ <div class="page-header header">
+        <h1> {{ 'Offers'|trans }} <small> {{ 'Add an offer'|trans }} </small></h1>
+    </div>
+
+     <div class="line-separator"></div>
+        <div class="panel panel-default contain">
+        <div class="panel-heading title">{{ 'Update your'|trans }} post!</div>
+        <div class="panel-body">
+            <div class="row">
+        <form action="{{ path('comments_edit', {'id': id }) }}" method="post" class="panel-body">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="form center-block">
+                        <div class="form-group">
+                             {{ form_errors(form.content) }}
+                             {{ form_label(form.content) }}
+                             {{ form_widget(form.content) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+            <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Edit'|trans }}">
+            {{ form_rest(form) }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
+

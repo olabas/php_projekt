@@ -160,9 +160,23 @@ class SignedInModel
         }
     }
 
-        public function updateProfile($user, $id)
+    public function updateProfile($user, $id)
     {
-        var_dump($user);
         return $this->db->update('users', $user, array('id' => $id));
+    }
+
+    public function updatePassword($password, $id)
+    {
+        return $this->db->update('users', $password, array('id' => $id));
+    }
+
+    public function getActualPassword() {
+        $login = $this -> getOnlineUsername();
+        $query = 'SELECT password FROM users WHERE login = :login';
+        $statement = $this->app['db']->prepare($query);
+        $statement->bindValue('login', $login, \PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return !$result ? array() : current($result);        
     }
 }

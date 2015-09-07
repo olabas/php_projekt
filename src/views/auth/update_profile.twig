@@ -5,13 +5,18 @@
 
 {% block content %}
  <div class="page-header header">
-        <h1> {{ 'Profile'|trans }} <small> {{ 'Change your password'|trans }} </small></h1>
+        <h1> {{ 'My profile'|trans }} <small> {{ 'My data'|trans }} </small></h1>
     </div>
      <div class="line-separator"></div>
-    <div class="panel panel-default dates">
-        <form action="{{ path('users_edit', {'id': id }) }}" method="post" class="panel-body add-body">
+        <div class="panel panel-default contain">
+        <div class="panel-heading title">{{ 'Update your'|trans }} {{ 'profile'|trans }} !</div>
+        <div class="panel-body">
+        <img style="display: block; margin: 0 auto" src="{{ app.request.basepath }}/assets/img/profile.png" alt="Smiley face" height="250" width="250">
+
             <div class="row">
-                <div class="col-md-9">
+                      <div class="col-md-8 col-md-offset-2">
+        <form action="{{ path('users_edit', {'id': id }) }}" method="post" class="panel-body center-text">
+  
                     <div class="form center-block">
 
                           <div class="form-group">
@@ -39,9 +44,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <button class="btn btn-primary">{{ 'Add an offer'|trans }}</button>
+            <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Edit'|trans }}">
 
+            {{form_rest(form)}}
+            </div>
         </form>
     </div>
 {% endblock %}

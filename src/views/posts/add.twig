@@ -46,8 +46,10 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary">{{ 'Add an offer'|trans }}</button>
+           <div class="row col-md-12">
+            <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Add'|trans }}">
             {{ form_rest(form) }}
+            </div>
         </form>
     </div>
 {% endblock %}

@@ -46,7 +46,7 @@ class LoginForm extends AbstractType
                     new Assert\Length(array('min' => 8, 'max' => 16))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control parts'
                 ),
             )
         )
@@ -59,7 +59,7 @@ class LoginForm extends AbstractType
                     new Assert\Length(array('min' => 8))
                 ),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => 'form-control parts'
                 )
             )
         );
