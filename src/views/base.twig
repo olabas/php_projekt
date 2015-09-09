@@ -18,78 +18,63 @@
     {% endblock %}
     </head>
     <body class="body">
-    <div class="wrapper">
-    <div>
+    	<div class="wrapper">
 
-
-            <!-- main right col -->
-            <div class="column col-sm-12 col-xs-12" id="main">
-
+		    <!-- main right col -->
+        	    <div class="column col-sm-12 col-xs-12" id="main">
                 <!-- top nav -->
-                <div class="navbar navbar-blue navbar-static-top">
+	                <div class="navbar navbar-blue navbar-static-top">
 
-                    <div class="navbar-header">
-                      <a href="{{ url('index') }}" class="navbar-brand logo">{{ 'Corepetitions'|trans }}</a>
-                    </div>
-
-                    <nav class="collapse navbar-collapse navbar-right" role="navigation">
-                      <ul class="nav navbar-nav">
-                        {% block navbar_list %}
-                               
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li>
-                                    <a href="{{ url('posts_add') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add an offer'|trans }}</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> {{ 'My profile'|trans }}</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{ url('auth_data') }}">{{ 'Data'|trans }}</a></li>
-                                        <li><a href="{{ url('auth_myoffers') }}">{{ 'My offers'|trans }}</a></li>
-                                        <li><a href="{{ url('messages_index') }}">{{ 'Messages'|trans }}</a></li>
-                                        <li><a href="{{ url('auth_logout') }}">{{ 'Logout'|trans }}</a></li>
-                                    </ul>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <a href="{{ url('auth_login') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-log-in"></i> {{ 'Sign in'|trans }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('register_register') }}"><i class="glyphicon glyphicon-list-alt"></i> {{ 'Registration'|trans }}</a>
-                                </li>
-                            {% endif %}
-                        {% endblock %}
-                      </ul>
-                    </nav>
-                </div>
+	                    <div class="navbar-header">
+	 	                   <a href="{{ url('index') }}" class="navbar-brand logo">{{ 'Corepetitions'|trans }}</a>
+	                    </div>
+		                <nav class="collapse navbar-collapse navbar-right">
+		                    <ul class="nav navbar-nav">
+        	                	{% block navbar_list %}                          
+                           		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	                                <li>
+	                                    <a href="{{ url('posts_add') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i>{{ 'Add an offer'|trans }}</a>
+	                                </li>
+	                                <li class="dropdown">
+	                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> {{ 'My profile'|trans }}</a>
+	                                    <ul class="dropdown-menu">
+	                                        <li><a href="{{ url('auth_data') }}">{{ 'Data'|trans }}</a></li>
+	                                        <li><a href="{{ url('auth_myoffers') }}">{{ 'My offers'|trans }}</a></li>
+	                                        <li><a href="{{ url('messages_index') }}">{{ 'Messages'|trans }}</a></li>
+	                                        <li><a href="{{ url('auth_logout') }}">{{ 'Logout'|trans }}</a></li>
+	                                        {% if is_granted('ROLE_ADMIN') %}
+	                                            <li><a href="{{ url('index_posts') }}">{{ 'Admin panel'|trans }}</a></li>
+	                                        {% endif %}
+	                                    </ul>
+	                                </li>
+                            	{% else %}
+	                                <li>
+	                                    <a href="{{ url('auth_login') }}" role="button" data-toggle="modal"><i class="glyphicon glyphicon-log-in"></i> {{ 'Sign in'|trans }}</a>
+	                                </li>
+	                                <li>
+	                                    <a href="{{ url('register_register') }}"><i class="glyphicon glyphicon-list-alt"></i> {{ 'Registration'|trans }}</a>
+	                                </li>
+                            	{% endif %}
+                        		{% endblock %}
+                     		</ul>
+                    	</nav>
+                	</div>
                 <!-- /top nav -->
-
-                <div class="padding">
-                    <div class="full col-sm-12">
-                        <div class="row">
-                            {% block filter %}{% endblock %}
-                        </div>
-                    </div>
-                    <div class="full col-sm-12">
+					<div class="padding">
+                    	<div class="full col-sm-12">
+                        	<div class="row">
+                        	    {% block filter %}{% endblock %}
+                    		</div>
+                    	</div>
+                    	<div class="full col-sm-12">
                             {% block content %}{% endblock %}
-                    </div>
-
-
-                </div>
-            </div>
-
+                    	</div>
+               		</div>
+            	</div>
             <!-- /main -->
-        </div>
 
-    </div>
-
-</div>
-
-{% for flashMessage in app.session.getFlashBag.get('message') %}t
-    <div class="alert alert-{{ flashMessage.type }}" role="alert">
-        {{ flashMessage.content }}
-    </div>
-{% endfor %}
-
+		 </div>
+{#
 {% if (info) %}
     <div class="alert alert-success alert-dismissible notification" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -114,7 +99,7 @@
 {% block others %}
 {{ error }}
 {% endblock %}
-
+#}
   <!-- script references -->
     <script src="{{ app.request.basepath }}/assets/jquery/jquery-2.1.4.js"></script>
     <script src="{{ app.request.basepath }}/assets/bootstrap/js/bootstrap.min.js"></script>

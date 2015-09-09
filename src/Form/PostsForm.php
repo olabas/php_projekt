@@ -29,16 +29,6 @@ use Silex\Application;
  */
 class PostsForm extends AbstractType
 {
-    /**
-     * Form builder.
-     *
-     * @access public
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     *
-     * @return FormBuilderInterface
-     */
-
     protected $app;
 
     /**
@@ -74,7 +64,7 @@ class PostsForm extends AbstractType
                 'attr' => array(
                     'class' => 'form-control parts'
                 ),
-                'label' => 'Tytuł'
+                'label' => 'Title'
             )
         )
         ->add(
@@ -88,12 +78,12 @@ class PostsForm extends AbstractType
                 'attr' => array(
                     'class' => 'form-control textarea',
                 ),
-                'label' => 'Treść'
+                'label' => 'Content'
             )
         )
         ->add(
             'price',
-            'text',
+            'number',
             array(
                 'constraints' => array(
                     new Assert\NotBlank(),
@@ -102,7 +92,7 @@ class PostsForm extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Cena'
+                'label' => 'Price'
             )
         )
         ->add(
@@ -113,7 +103,7 @@ class PostsForm extends AbstractType
                     'class' => 'form-control small-parts',
                 ),
                 'choices' => $this->getCategory($this->app),
-                'label' => 'Kategoria'
+                'label' => 'Category'
             )
         )
         ->add(
@@ -124,7 +114,7 @@ class PostsForm extends AbstractType
                     'class' => 'form-control small-parts',
                 ),
                 'choices' => $this->getCity($this->app),
-                'label' => 'Lokalizacja'
+                'label' => 'Locality'
             )
         );
     }
@@ -144,12 +134,12 @@ class PostsForm extends AbstractType
     /**
      * Gets category name.
      *
-     * @access private
+     * @access public
      * @param Silex\Application $app Silex application
      *
      * @return array
      */
-    private function getCategory($app)
+    public function getCategory($app)
     {
         $categoryModel = new FiltersModel($app);
         $data = $categoryModel->getAllCategories();
@@ -160,12 +150,12 @@ class PostsForm extends AbstractType
      /**
      * Gets city name.
      *
-     * @access private
+     * @access public
      * @param Silex\Application $app Silex application
      *
      * @return array
      */
-    private function getCity($app)
+    public function getCity($app)
     {
         $cityModel = new FiltersModel($app);
         $data = $cityModel->getAllCities();

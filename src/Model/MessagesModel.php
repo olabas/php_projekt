@@ -29,11 +29,6 @@ class MessagesModel
      */
     protected $db;
 
-    /**
-     * Security object.
-     *
-     * @access protected
-     */
     protected $security;
 
 
@@ -76,17 +71,21 @@ class MessagesModel
         $login = $this -> getOnlineUsername();
         $query = '
             SELECT 
-                messages.id, messages.recipient_id, users.login, 
+                messages.id, messages.recipient_id, recipient.login as rl,
                 messages.title, messages.content, messages.date, 
-                messages.is_read
+                messages.is_read, sender.login as sl
             FROM 
                 messages 
             INNER JOIN 
-                users 
+                users as recipient 
             ON 
-                (users.id=messages.recipient_id) 
+                (recipient.id = messages.recipient_id) 
+            INNER JOIN
+                users as sender
+            ON
+                (sender.id = messages.sender_id) 
             WHERE 
-                login = :login
+                recipient.login = :login
             ORDER BY
                 messages.date
             DESC
@@ -99,6 +98,43 @@ class MessagesModel
     }
 
     /**
+     * Gets messages I send.
+     *
+     * @access public
+     * @return array Result
+     */
+    public function getMessagesIsend()
+    {
+        $login = $this -> getOnlineUsername();
+        $query = '
+            SELECT 
+                messages.id, messages.sender_id, sender.login as sl, 
+                messages.title, messages.content, messages.date,
+                recipient.login as rl
+            FROM 
+                messages 
+            INNER JOIN 
+                users as sender
+            ON 
+                (sender.id = messages.sender_id)
+            INNER JOIN
+                users as recipient
+            ON
+                (recipient.id = messages.recipient_id) 
+            WHERE 
+                sender.login = :login
+            ORDER BY
+                messages.date
+            DESC
+            ';
+        $statement = $this->app['db']->prepare($query);
+        $statement->bindValue('login', $login, \PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        return !$result ? array() : $result;
+
+    }
+    /**
      * Send message
      *
      * @access public
@@ -110,14 +146,61 @@ class MessagesModel
         return $this->db->insert('messages', $message);
     }
 
-
+    /**
+     * delete message
+     *
+     * @access public
+     * @param integer $id Message's id
+     * @return mixed Result
+     */
+    public function deleteMessage($id)
+    {
+        return $this->db->delete('messages', array('id' => $id));
+    }
     /**
      * Gets message.
      *
      * @access public
+     * @param integer $id Message's id
      * @return array Result
      */
     public function getMessage($id)
+    {
+        if (($id != '') && ctype_digit((string)$id)) {
+            $query = '
+                SELECT 
+                    messages.id, messages.title, messages.content, 
+                    messages.date, messages.recipient_id,
+                    messages.sender_id, messages.is_read, users.login, 
+                    users.name, users.surname, users.address,
+                    users.email, users.phone_number 
+                FROM
+                    messages
+                INNER JOIN
+                    users
+                ON
+                    users.id = messages.sender_id
+                WHERE
+                    messages.id = :id
+                ';
+            $statement = $this->db->prepare($query);
+            $statement->bindValue('id', $id, \PDO::PARAM_INT);
+            $statement->execute();
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+            return !$result ? array() : current($result);
+        } else {
+            return array();
+        }
+    }
+
+ /**
+     * Gets message I send.
+     *
+     * @access public
+     * @param integer $id Message's id
+     * @return array Result
+     */
+    public function getMessageIsend($id)
     {
         if (($id != '') && ctype_digit((string)$id)) {
             $query = '

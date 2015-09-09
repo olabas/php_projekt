@@ -1,10 +1,10 @@
 <?php
 /**
- * Register form.
+ * Update profile form
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
 
 namespace Form;
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class RegisterForm.
+ * Class UpdateProfileForm.
  *
  * @package Form
  * @extends AbstractType

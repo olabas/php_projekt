@@ -26,6 +26,8 @@ use Silex\Application;
  * @use Symfony\Component\Form\FormBuilderInterface
  * @use Symfony\Component\OptionsResolver\OptionsResolverInterface
  * @use Symfony\Component\Validator\Constraints as Assert
+ * @use Model\FiltersModel;
+ * @use Silex\Application;
  */
 class FiltersForm extends AbstractType
 {
@@ -64,36 +66,64 @@ class FiltersForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         return  $builder->add(
-            'category',
+            'category_id',
             'choice',
             array(
+                'required' => false,
                 'attr' => array(
                     'class' => 'form-control small-parts',
                 ),
+                'placeholder' => 'Category',
                 'choices' => $this->getCategory($this->app),
-                'label' => 'Kategoria'
+                'label' => false
             )
         )
         ->add(
-            'city',
+            'city_id',
             'choice',
             array(
+                'required' => false,
                 'attr' => array(
                     'class' => 'form-control small-parts',
                 ),
+                'placeholder' => 'Locality',
                 'choices' => $this->getCity($this->app),
-                'label' => 'Lokalizacja'
+                'label' => false
             )
         )
         ->add(
-            'sexz',
-            'checkbox',
+            'sex',
+            'choice',
             array(
+                'required' => false,
                 'attr' => array(
                     'class' => 'form-control small-parts',
                 ),
-                'data' => 'abcdef',
-                'label' => 'Lokalizacja'
+                'placeholder' => 'Sex',
+                'choices' => array(
+                    'f' => 'Female',
+                    'm' => 'Male'
+                ),
+                'label' => false
+            )
+        )
+        ->add(
+            'price',
+            'choice',
+            array(
+                'required' => false,
+                'attr' => array(
+                    'class' => 'form-control small-parts',
+                ),
+                'placeholder' => 'Price',
+                'label' => false,
+                'choices' => array(
+                    '10-20' => '10-20',
+                    '20-30' => '20-30',
+                    '30-40' => '30-40',
+                    '40-50' => '40-50',
+                    'powyżej 50' => 'powyżej 50'
+                )
             )
         );
     }
@@ -113,12 +143,12 @@ class FiltersForm extends AbstractType
     /**
      * Gets category name.
      *
-     * @access private
+     * @access public
      * @param Silex\Application $app Silex application
      *
      * @return array
      */
-    private function getCategory($app)
+    public function getCategory($app)
     {
         $categoryModel = new FiltersModel($app);
         $data = $categoryModel->getAllCategories();
@@ -129,12 +159,12 @@ class FiltersForm extends AbstractType
      /**
      * Gets city name.
      *
-     * @access private
+     * @access public
      * @param Silex\Application $app Silex application
      *
      * @return array
      */
-    private function getCity($app)
+    public function getCity($app)
     {
         $cityModel = new FiltersModel($app);
         $data = $cityModel->getAllCities();

@@ -122,7 +122,7 @@ class PostsModel
     *
     * @access public
     * @param array $post Post's data
-    * @retun mixed Result
+    * @return mixed Result
     */
     public function addPost($post)
     {
@@ -135,20 +135,19 @@ class PostsModel
     * @access public
     * @param array $post Post's data
     * @param integer $id Post's id
-    * @retun mixed Result
+    * @return mixed Result
     */
     public function updatePost($post, $id)
     {
         return $this->db->update('posts', $post, array('id' => $id));
     }
 
- 	/**
+    /**
     * Delete post.
     *
     * @access public
-    * @param array $post Post's data
     * @param integer $id Post's id
-    * @retun mixed Result
+    * @return mixed Result
     */
     public function deletePost($id)
     {

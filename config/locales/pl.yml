@@ -12,6 +12,8 @@ Sign in: Zaloguj
 
 Logout: Wyloguj
 
+You were safely log out.: Zostałeś bezpiecznie wylogowany.
+
 Registration: Rejestracja
 
 Register: Zarejestruj
@@ -61,13 +63,23 @@ Learn more: Czytaj dalej
 
 Added by: Dodane przez:
 
-Category: Kategoria:
+Locality: Lokalizacja
 
-State: Województwo:
+Price: Cena
 
-City: Miasto:
+Minimum price: Minimalna cena
 
-Sex: Płeć:
+Maksimum price: Maksymalna cena
+
+Content: Treść
+
+Category: Kategoria
+
+State: Województwo
+
+City: Miasto
+
+Sex: Płeć
 
 is not unique: jest zajęta
 
@@ -83,7 +95,11 @@ a message to: wiadomość do
 
 Messages: Wiadomości
 
-PLN for and hour: zł/h
+message: wiadomość
+
+Message: wiadomość
+
+PLN per hour: zł/h
 
 Send a message: Wyślij wiadomość
 
@@ -103,6 +119,85 @@ Edit: Edytuj
 
 Delete: Usuń
 
+comment: komentarz
+
+Comment: Komentarz
+
 Go to full description of this offer: Zobacz pełny opis oferty
 
+It is not your comment! You can not edit it.: Nie jesteś autorem tego komentarza! Nie możesz go edytować.
+
+It is not your post! You can not edit it.: Nie jesteś autorem tego postu! Nie możesz go edytować.
+
+It is not your comment! You can not delete it.: Nie jesteś autorem tego komentarza! Nie możesz go usunąć.
+
+It is not your post! You can not delete it.: Nie jesteś autorem tego postu! Nie możesz go usunąć.
+
+Post has been deleted.: Post został usunięty.
+
+Post has been edited.: Zmiany zostały zapisane.
+
+Post has been added.: Post został pomyślnie dodany.
+
+Comment has been deleted.: Komentarz został usunięty.
+
+Changes have been saved: Zmiany zostały zapisane.
+
+Are you sure you want to delete this: Jesteś pewien, że chcesz usunąć ten
+
+will be permanently deleted.: zostanie trwale usunięty.
+
+YES: TAK
+
+NO: NIE
+
+Change your password: Zmień hasło
+
+Old password: Stare hasło
+
+New password: Nowe hasło
+
+Password has been changed!: Hasło zostało zmienione.
+
+You have no posts.: Nie masz żadnych ofert.
+
+You have no messages.: Nie masz żadnych wiadomości w skrzynce.
+
+Inbox: Skrzynka odbiorcza
+
+Outbox: Skrzynka nadawcza
+
+Recipient: Odbiorca
+
+user: użytkownik
+
+User: Użytkownik
+
+Delete user: Usuń użytkownika
+
+Are you sure you want to delete this user?: Jesteś pewien, że chcesz usunąć tego użytkownika?
+
+Are you sure you want to delete this message?: Jesteś pewien, że chcesz usunąć tą wiadomość?
+
+Message will be permanently deleted.: Wiadomość zostanie trwale usunięta.
+
+Message has been deleted: Wiadomość została usunięta.
+
+Message has been sent: Wiadomość została wysłana.
+
+Users: Użytkownicy
+
+Posts: Posty
+
+Admin panel: Panel admina
+
+Managing posts: Zarządzaj postami
+
+Managing users: Zarządzaj użytkownikami
+
+Filter: Filtruj
+
+Female: Kobieta
+
+Male: Mężczyzna
 

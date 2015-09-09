@@ -1,12 +1,12 @@
 <?php
+
 /**
  * Register form.
  *
- * @author EPI <epi@uj.edu.pl>
- * @link http://epi.uj.edu.pl
- * @copyright 2015 EPI
+ * @link http://wierzba.wzks.uj.edu.pl/13_bassara
+ * @author Aleksandra Bassara <olabassara@gmail.com>
+ * @copyright Aleksandra Bassara 2015
  */
-
 namespace Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -64,7 +64,7 @@ class RegisterForm extends AbstractType
             )
         )
         ->add(
-            'repeat_password',
+            'password_repeated',
             'password',
             array(
                 'constraints' => array(
@@ -125,6 +125,22 @@ class RegisterForm extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'form-control parts'
+                )
+            )
+        )
+        ->add(
+            'sex',
+            'choice',
+            array(
+                'constraints' => array(
+                    new Assert\NotBlank()
+                ),
+                'attr' => array(
+                    'class' => 'form-control parts'
+                ),
+                'choices' => array(
+                    'f' => 'Female',
+                    'm' => 'Male'
                 )
             )
         );

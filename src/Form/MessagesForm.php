@@ -48,7 +48,7 @@ class MessagesForm extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 ),
-                'label' => 'Tytuł'
+                'label' => 'Title'
             )
         )
         ->add(
@@ -63,7 +63,7 @@ class MessagesForm extends AbstractType
                     'class' => 'form-control',
                     'rows' => 10
                 ),
-                'label' => 'Wiadomość'
+                'label' => 'Content'
             )
         );
     }

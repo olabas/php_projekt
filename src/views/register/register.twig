@@ -10,9 +10,54 @@
     <div class="panel-body">
     <form action="{{ path('register_register') }}" method="post" class="form center-block parts">
         <div class="form-group">
-            {{ form_widget(form) }}
+            {{ form_errors(form.login) }}
+            {{ form_label(form.login) }}
+            {{ form_widget(form.login) }}
         </div>
-        <button class="btn btn-primary button">{{ 'Register'|trans }}</button>
+
+                <div class="form-group">
+            {{ form_errors(form.password) }}
+            {{ form_label(form.password) }}
+            {{ form_widget(form.password) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.password_repeated) }}
+            {{ form_label(form.password_repeated) }}
+            {{ form_widget(form.password_repeated) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.name) }}
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.surname) }}
+            {{ form_label(form.surname) }}
+            {{ form_widget(form.surname) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.email) }}
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.phone_number) }}
+            {{ form_label(form.phone_number) }}
+            {{ form_widget(form.phone_number) }}
+        </div>
+
+                <div class="form-group">
+            {{ form_errors(form.sex) }}
+            {{ form_label(form.sex) }}
+            {{ form_widget(form.sex) }}
+        </div>
+        <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Register'|trans }}">
+        {{ form_rest(form) }}
     </form>
         </div>
     </div>

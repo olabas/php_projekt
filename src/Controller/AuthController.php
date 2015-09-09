@@ -22,6 +22,10 @@ use Form\LoginForm;
  * @package Controller
  * @extends BaseController
  * @implements ControllerProviderInterface
+ * @use Silex\Application;
+ * @use Silex\ControllerProviderInterface;
+ * @use Symfony\Component\HttpFoundation\Request;
+ * @use Form\LoginForm;
  */
 class AuthController extends BaseController implements ControllerProviderInterface
 {
@@ -52,17 +56,20 @@ class AuthController extends BaseController implements ControllerProviderInterfa
      */
     public function loginAction(Application $app, Request $request)
     {
-        $user = array(
-            'login' => $app['session']->get('_security.last_username')
-        );
+        try {
+            $user = array(
+                'login' => $app['session']->get('_security.last_username')
+            );
 
-        $form = $app['form.factory']->createBuilder(new LoginForm(), $user)
-            ->getForm();
+            $form = $app['form.factory']->createBuilder(new LoginForm(), $user)
+                ->getForm();
 
-        $view=parent::getView();
-        $view['form']=$form->createView();
-        $view['error']=$app['security.last_error']($request);
-
+            $view=parent::getView();
+            $view['form']=$form->createView();
+            $view['error']=$app['security.last_error']($request);
+        } catch (\PDOException $e) {
+            $app->abort(404, $app['translator']->trans('Not found.'));
+        }
         return $app['twig']->render('auth/login.twig', $view);
     }
 
@@ -76,7 +83,25 @@ class AuthController extends BaseController implements ControllerProviderInterfa
      */
     public function logoutAction(Application $app, Request $request)
     {
-        $app['session']->clear();
+        try {
+            $app['session']->clear();
+            $app['session']->getFlashBag()->add(
+                'message',
+                array(
+                    'type' => 'success',
+                    'content' => $app['translator']->trans('You were safely log out.')
+                )
+            );
+            return $app->redirect(
+                $app['url_generator']->generate('index'),
+                301
+            );
+        } catch (\PDOException $e) {
+            $app->abort(
+                404,
+                $app['translator']->trans('Not found.')
+            );
+        }
         return $app['twig']->render('posts/index.twig', parent::getView());
     }
 }

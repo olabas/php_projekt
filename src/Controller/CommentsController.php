@@ -18,8 +18,6 @@ use Model\SignedInModel;
 use Model\CommentsModel;
 use Symfony\Component\Validator\Constraints as Assert;
 use Form\CommentsForm;
-use Controller\DataController;
-use Controller\PostsController;
 
 /**
  * Class CommentsController.
@@ -27,6 +25,14 @@ use Controller\PostsController;
  * @package Controller
  * @extends BaseController
  * @implements ControllerProviderInterface
+ * @use Silex\Application;
+ * @use Silex\ControllerProviderInterface;
+ * @use Symfony\Component\HttpFoundation\Request;
+ * @use Symfony\Component\Validator\Constraints as Assert;
+ * @use Model\FiltersModel;
+ * @use Model\SignedInModel;
+ * @use Model\CommentsModel;
+ * @use Form\CommentsForm;
  */
 class CommentsController extends BaseController implements ControllerProviderInterface
 {
@@ -62,37 +68,58 @@ class CommentsController extends BaseController implements ControllerProviderInt
      */
     public function editAction(Application $app, Request $request)
     {
+        try {
+            $commentsModel = new CommentsModel($app);
+            $id = (int) $request->get('id', 0);
+            $comment = $commentsModel->getComment($id);
+            $signedInModel = new SignedInModel($app);
+            $user = $signedInModel->getUser();
+            // default values:
+            if (count($comment)) {
+                if ($comment['user_id'] == $user['id']) {
+                    $form = $app['form.factory']->createBuilder(new CommentsForm($app), $comment)
+                        ->getForm();
 
-        $commentsModel = new CommentsModel($app);
-        $id = (int) $request->get('id', 0);
-        $comment = $commentsModel->getComment($id);
-        $view = parent::getView();
+                    $form->handleRequest($request);
 
-        // default values:
-        if (count($comment)) {
-            $form = $app['form.factory']->createBuilder(new CommentsForm($app), $comment)
-                ->getForm();
-
-            $form->handleRequest($request);
-
-            if ($form->isValid()) {
-                $comment = $form->getData();
-                $commentsModel = new CommentsModel($app);
-                $commentsModel->updateComment($comment, $id);
-                return $app->redirect(
-                    $app['url_generator']->generate('posts_view'),
-                    301
-                );
+                    if ($form->isValid()) {
+                        $comment = $form->getData();
+                        $commentsModel = new CommentsModel($app);
+                        $commentsModel->updateComment($comment, $id);
+                        $app['session']->getFlashBag()->add(
+                            'message',
+                            array(
+                            'type' => 'success',
+                            'content' => $app['translator']->trans('Changes have been saved')
+                            )
+                        );
+                        return $app->redirect(
+                            $app['url_generator']->generate('posts_view', array('id' => $comment['post_id'])),
+                            301
+                        );
+                    }
+                } else {
+                    $app['session']->getFlashBag()->add(
+                        'message',
+                        array(
+                            'type' => 'danger',
+                            'content' => $app['translator']->trans('It is not your comment! You can not edit it.')
+                        )
+                    );
+                    return $app->redirect(
+                        $app['url_generator']->generate(
+                            'posts_view',
+                            array('id' => $comment['post_id'])
+                        ),
+                        301
+                    );
+                }
+                $view = parent::getView();
+                $view['id'] = $id;
+                $view['form'] = $form->createView();
             }
-
-            $view['id'] = $id;
-            $view['form'] = $form->createView();
-
-        } else {
-            return $app->redirect(
-                $app['url_generator']->generate('index'),
-                301
-            );
+        } catch (\PDOException $e) {
+            $app->abort(404, $app['translator']->trans('Not found.'));
         }
         return $app['twig']->render('comments/edit.twig', $view);
     }
@@ -107,27 +134,54 @@ class CommentsController extends BaseController implements ControllerProviderInt
      */
     public function deleteAction(Application $app, Request $request)
     {
-        $id = (int) $request->get('id', 0);
-        $commentsModel = new CommentsModel($app);
-        $comment = $commentsModel->getComment($id);
-
-        if($request->getMethod() == $request::METHOD_POST)
-        {
+        try {
+            $id = (int) $request->get('id', 0);
             $commentsModel = new CommentsModel($app);
-            $commentsModel->deleteComment($comment['id']);
-            $app['session']->getFlashBag()->add(
-                'message', array(
-                    'type' => 'success', 'content' => $app['translator']->trans('Comment deleted.')
-                )
-            );
-           
-            return $app->redirect(
-                $app['url_generator']->generate('index'), 301
-            );
+            $comment = $commentsModel->getComment($id);
+            $signedInModel = new SignedInModel($app);
+            $user = $signedInModel->getUser();
+
+            if ($comment['user_id'] == $user['id']) {
+                if ($request->getMethod() == $request::METHOD_POST) {
+                    $commentsModel = new CommentsModel($app);
+                    $commentsModel->deleteComment($comment['id']);
+                    $app['session']->getFlashBag()->add(
+                        'message',
+                        array(
+                            'type' => 'success',
+                            'content' => $app['translator']->trans('Comment has been deleted.')
+                        )
+                    );
+                   
+                    return $app->redirect(
+                        $app['url_generator']->generate(
+                            'posts_view',
+                            array('id' => $comment['post_id'])
+                        ),
+                        301
+                    );
+                }
+                $view = parent::getView();
+                $view['id'] = $id;
+            } else {
+                $app['session']->getFlashBag()->add(
+                    'message',
+                    array(
+                        'type' => 'danger',
+                        'content' => $app['translator']->trans('It is not your comment! You can not delete it.')
+                    )
+                );
+                return $app->redirect(
+                    $app['url_generator']->generate(
+                        'posts_view',
+                        array('id' => $comment['post_id'])
+                    ),
+                    301
+                );
+            }
+        } catch (\PDOException $e) {
+            $app->abort(404, $app['translator']->trans('Not found.'));
         }
-        $view = parent::getView();
-        $view['id'] = $id;
         return $app['twig']->render('comments/delete.twig', $view);
     }
-
 }

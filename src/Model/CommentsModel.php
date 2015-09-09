@@ -69,7 +69,7 @@ class CommentsModel
             $statement = $this->db->prepare($query);
             $statement->bindValue('id', $id, \PDO::PARAM_INT);
             $statement->execute();
-           return $statement->fetchAll();
+            return $statement->fetchAll();
            
         } else {
             return array();
@@ -127,11 +127,11 @@ class CommentsModel
     }
 
      /**
-    * Update post.
+    * Update comment.
     *
     * @access public
-    * @param array $post Post's data
-    * @param integer $id Post's id
+    * @param array $comment Comment's data
+    * @param integer $id Comment's id
     * @retun mixed Result
     */
     public function updateComment($comment, $id)
@@ -140,11 +140,10 @@ class CommentsModel
     }
 
     /**
-    * Delete post.
+    * Delete comment.
     *
     * @access public
-    * @param array $post Post's data
-    * @param integer $id Post's id
+    * @param integer $id Comment's id
     * @retun mixed Result
     */
     public function deleteComment($id)

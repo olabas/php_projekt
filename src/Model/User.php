@@ -118,14 +118,14 @@ final class User implements AdvancedUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string User's Salt
      */
     public function getSalt()
     {
     }
 
     /**
-     * {@inheritdoc}
+     * @return string User's name
      */
     public function getUsername()
     {
@@ -133,7 +133,7 @@ final class User implements AdvancedUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string Is account non expired
      */
     public function isAccountNonExpired()
     {
@@ -141,7 +141,7 @@ final class User implements AdvancedUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string Is account non locked
      */
     public function isAccountNonLocked()
     {
@@ -149,7 +149,7 @@ final class User implements AdvancedUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@return string is Credentials non expired
      */
     public function isCredentialsNonExpired()
     {
@@ -157,7 +157,7 @@ final class User implements AdvancedUserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string is enabled
      */
     public function isEnabled()
     {

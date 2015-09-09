@@ -54,7 +54,7 @@ class UsersModel
      * @access public
      * @param string $login User login
      * @throws UsernameNotFoundException
-     * @return array 
+     * @return array
      */
     public function loadUserByLogin($login)
     {
@@ -219,5 +219,24 @@ class UsersModel
         } else {
             return array();
         }
+    }
+
+    /**
+     * Get all users.
+     *
+     * @access public
+     * @return array Result
+     */
+
+    public function getAll()
+    {
+        $query = '
+            SELECT
+                id, login, name, surname
+            FROM
+                users
+            ';
+        $result = $this->db->fetchAll($query);
+        return !$result ? array() : $result;
     }
 }

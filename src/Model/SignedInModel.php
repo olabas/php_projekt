@@ -160,23 +160,58 @@ class SignedInModel
         }
     }
 
+   /**
+    * Update profile.
+    *
+    * @access public
+    * @param array $user User's data
+    * @param integer $id User's id
+    * @return mixed Result
+    */
     public function updateProfile($user, $id)
     {
         return $this->db->update('users', $user, array('id' => $id));
     }
 
+   /**
+    * delete profile.
+    *
+    * @access public
+    * @param integer $id User's id
+    * @return mixed Result
+    */
+    public function deleteProfile($id)
+    {
+        return $this->db->delete('users', array('id' => $id));
+    }
+
+   /**
+    * Update password.
+    *
+    * @access public
+    * @param array $password User's password
+    * @param integer $id User's id
+    * @return mixed Result
+    */
     public function updatePassword($password, $id)
     {
         return $this->db->update('users', $password, array('id' => $id));
     }
 
-    public function getActualPassword() {
+   /**
+    * Get actual password.
+    *
+    * @access public
+    * @return array Result
+    */
+    public function getActualPassword()
+    {
         $login = $this -> getOnlineUsername();
         $query = 'SELECT password FROM users WHERE login = :login';
         $statement = $this->app['db']->prepare($query);
         $statement->bindValue('login', $login, \PDO::PARAM_STR);
         $statement->execute();
-        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
-        return !$result ? array() : current($result);        
+        $result = $statement->fetchAll(\PDO::FETCH_COLUMN);
+        return !$result ? array() : current($result);
     }
 }

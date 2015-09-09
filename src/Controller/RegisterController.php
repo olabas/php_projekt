@@ -23,6 +23,12 @@ use Form\RegisterForm;
  * @package Controller
  * @extends BaseController
  * @implements ControllerProviderInterface
+ * @use Model\UsernameNotUniqueException;
+ * @use Model\UsersModel;
+ * @use Silex\Application;
+ * @use Silex\ControllerProviderInterface;
+ * @use Symfony\Component\HttpFoundation\Request;
+ * @use Form\RegisterForm;
  */
 class RegisterController extends BaseController implements ControllerProviderInterface
 {
@@ -52,60 +58,64 @@ class RegisterController extends BaseController implements ControllerProviderInt
      */
     public function registerAction(Application $app, Request $request)
     {
-        $user = array(
-            'login' => $app['session']->get('_security.last_username')
-        );
+        try {
+            $user = array(
+                'login' => $app['session']->get('_security.last_username')
+            );
 
-        $error = $app['security.last_error']($request);
+            $error = $app['security.last_error']($request);
 
-        $form = $app['form.factory']->createBuilder(new RegisterForm(), $user)
-            ->getForm();
+            $form = $app['form.factory']->createBuilder(new RegisterForm(), $user)
+                ->getForm();
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $data=$form->getData();
-            if ($data['password']!=$data['repeat_password']) {
-                $error = $app['translator']->trans('Passwords do not match').'.';
-            } else {
-                $model=new UsersModel($app);
+            if ($form->isValid()) {
+                $data=$form->getData();
+                var_dump($data);
+                if ($data['password']!=$data['password_repeated']) {
+                    $error = $app['translator']->trans('Passwords do not match').'.';
+                } else {
+                    $model=new UsersModel($app);
 
-                try {
-                    $model->addUser(array(
-                        'login' => $data['login'],
-                        'password' => $app['security.encoder.digest']->encodePassword($data['password'], ''),
-                        'name' => $data['name'],
-                        'surname' => $data['surname'],
-                        'address' => $data['address'],
-                        'email' => $data['email'],
-                        'phone_number' => $data['phone_number'],
-                        'role_id' => 1
-                    ));
-                    $view = parent::getView();
-                    $view['info']=$app['translator']->trans('Account')
-                        .' '
-                        .$data['login']
-                        .' '
-                        .$app['translator']->trans('has been successfully registered')
-                        .'! '
-                        .$app['translator']->trans('You can log in now')
-                        .'.';
-                    $view['form']=$form->createView();
-                    return $app['twig']->render('register/register.twig', $view);
-                } catch (UsernameNotUniqueException $e) {
-                    $error = $app['translator']->trans('Username')
-                        .': '
-                        .$data['login']
-                        .' '
-                        .$app['translator']->trans('is not unique')
-                        .'.';
+                    try {
+                        $model->addUser(array(
+                            'login' => $data['login'],
+                            'password' => $app['security.encoder.digest']->encodePassword($data['password'], ''),
+                            'name' => $data['name'],
+                            'surname' => $data['surname'],
+                            'email' => $data['email'],
+                            'phone_number' => $data['phone_number'],
+                            'sex' => $data['sex'],
+                            'role_id' => 2
+                        ));
+                        $view = parent::getView();
+                        $view['info']=$app['translator']->trans('Account')
+                            .' '
+                            .$data['login']
+                            .' '
+                            .$app['translator']->trans('has been successfully registered')
+                            .'! '
+                            .$app['translator']->trans('You can log in now')
+                            .'.';
+                        $view['form']=$form->createView();
+                        return $app['twig']->render('register/register.twig', $view);
+                    } catch (UsernameNotUniqueException $e) {
+                        $error = $app['translator']->trans('Username')
+                            .': '
+                            .$data['login']
+                            .' '
+                            .$app['translator']->trans('is not unique')
+                            .'.';
+                    }
                 }
             }
+            $view = parent::getView();
+            $view['form']=$form->createView();
+            $view['error']=$error;
+        } catch (\PDOException $e) {
+            $app->abort(404, $app['translator']->trans('Not found.'));
         }
-        $view = parent::getView();
-        $view['form']=$form->createView();
-        $view['error']=$error;
-
         return $app['twig']->render('register/register.twig', $view);
     }
 }
