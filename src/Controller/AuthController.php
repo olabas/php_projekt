@@ -56,6 +56,7 @@ class AuthController extends BaseController implements ControllerProviderInterfa
      */
     public function loginAction(Application $app, Request $request)
     {
+        $view=parent::getView();
         try {
             $user = array(
                 'login' => $app['session']->get('_security.last_username')
@@ -64,9 +65,19 @@ class AuthController extends BaseController implements ControllerProviderInterfa
             $form = $app['form.factory']->createBuilder(new LoginForm(), $user)
                 ->getForm();
 
-            $view=parent::getView();
             $view['form']=$form->createView();
-            $view['error']=$app['security.last_error']($request);
+
+            $errorMessage = $app['security.last_error']($request);
+            if ($errorMessage != '') {
+                // if error message is not empty then add it to flash bag
+                $app['session']->getFlashBag()->add(
+                    'message',
+                    array(
+                        'type' => 'danger',
+                        'content' => $app['translator']->trans($errorMessage)
+                    )
+                );
+            }
         } catch (\PDOException $e) {
             $app->abort(404, $app['translator']->trans('Not found.'));
         }

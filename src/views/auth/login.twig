@@ -8,6 +8,11 @@
             <h3 class="panel-title title">{{ 'Login panel'|trans }}</h3>
         </div>
         <div class="panel-body">
+            {% for flashMessage in app.session.getFlashBag.get('message') %}
+                <div class="alert alert-{{ flashMessage.type }}" role="alert">
+                    {{ flashMessage.content }}
+                </div>
+            {% endfor %}
             <form action="{{ path('auth_login_check') }}" method="post" class="form center-block parts">
             <div class="form-group"> 
                 {{ form_widget(form) }}
