@@ -29,6 +29,12 @@ use Silex\Application;
  */
 class PostsForm extends AbstractType
 {
+     /**
+     * App object.
+     *
+     * @access protected
+     * @var Silex\Application $app
+     */
     protected $app;
 
     /**

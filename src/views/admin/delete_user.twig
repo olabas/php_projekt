@@ -11,7 +11,7 @@
          <h4> {{ 'Are you sure you want to delete this user?'|trans }}</h4>
          <h5> {{ 'User'|trans }} {{ 'will be permanently deleted.'|trans }}</h5>
            <form action="{{ path('delete_user', {'id': id }) }}" method="post">
-        <a href="{{ url('index') }}" class="btn btn-primary">{{ 'NO'|trans }}</a>
+        <a href="{{ url('index_users') }}" class="btn btn-primary">{{ 'NO'|trans }}</a>
         <input class="btn btn-inverse" type="submit" name="submit" value="{{ 'YES'|trans }}" />
     </form>
         </div>

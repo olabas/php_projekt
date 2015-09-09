@@ -3,57 +3,66 @@
 {% block title %} {{ 'Find your teacher'|trans }} {% endblock %}
 
 {% block filter %}
-
-<div class="panel panel-default contain">
-    <div class="panel-body">
-    <form action="{{ path('index') }}" method="post" class="form center-block parts">
-        <div class="form-group">
-            {{ form_errors(form.category_id) }}
-            {{ form_label(form.category_id) }}
-            {{ form_widget(form.category_id) }}
+    {% for flashMessage in app.session.getFlashBag.get('message') %}
+        <div class="alert alert-{{ flashMessage.type }}" role="alert">
+            {{ flashMessage.content }}
         </div>
+    {% endfor %}
 
-        <div class="form-group">
-            {{ form_errors(form.city_id) }}
-            {{ form_label(form.city_id) }}
-            {{ form_widget(form.city_id) }}
-        </div>
-
-        <div class="form-group">
-            {{ form_errors(form.sex) }}
-            {{ form_label(form.sex) }}
-            {{ form_widget(form.sex) }}
-        </div>
-
-         <div class="form-group">
-            {{ form_errors(form.price) }}
-            {{ form_label(form.price) }}
-            {{ form_widget(form.price) }}
-        </div>
-        <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Register'|trans }}">
-        {{ form_rest(form) }}
-    </form>
+    <div class="page-header header index">
+        <h1> {{ 'Offers'|trans }} <small> {{ 'Filter and view offers'|trans }} </small></h1>
+    </div>
+    <div class="line-separator"></div>
+    
+    <div class="panel panel-default filters">
+        <div class="panel-body filters">
+            <form action="{{ path('index') }}" method="post" class="form center-block">
+                <div class="col-md-2 col-md-offset-1">
+                    <div class="form-group">
+                        {{ form_errors(form.category_id) }}
+                        {{ form_label(form.category_id) }}
+                        {{ form_widget(form.category_id) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form_errors(form.city_id) }}
+                        {{ form_label(form.city_id) }}
+                        {{ form_widget(form.city_id) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        {{ form_errors(form.sex) }}
+                        {{ form_label(form.sex) }}
+                        {{ form_widget(form.sex) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                     <div class="form-group">
+                        {{ form_errors(form.price) }}
+                        {{ form_label(form.price) }}
+                        {{ form_widget(form.price) }}
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-block btn-primary message" name="submit" value="{{ 'Filter'|trans }}">
+                </div>
+                {{ form_rest(form) }}
+            </form>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block content %}
-    {% for flashMessage in app.session.getFlashBag.get('message') %}
-    <div class="alert alert-{{ flashMessage.type }}" role="alert">
-        {{ flashMessage.content }}
-    </div>
-    {% endfor %}
-
- <div class="page-header header index">
-        <h1> {{ 'Offers'|trans }} <small> {{ 'Filter and view offers'|trans }} </small></h1>
-    </div>
-     <div class="line-separator"></div>
-     
-	{% for row in posts %}
-		<div class="panel panel-default">
-			<div class="panel-body offers">
+    {% if posts|length > 0 %} 
+    <a href="{{ url('index') }}" class="btn btn-block btn-primary message">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        {{ 'Clear all filters'|trans }} 
+   </a> 
+    {% for row in posts %}
+        <div class="panel panel-default">
+            <div class="panel-body offers">
 				<div class="row panels">
 					<div class="col-md-7">
 						<div class="jumbotron offers">
@@ -63,7 +72,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="jumbotron offers">
-							<p><b >{{ 'Added by'|trans }} {{ row.login }}</b></p>
+							<p><b >{{ 'Added by'|trans }} {{ row.author }}</b></p>
 							<p> {{ 'Category'|trans }} {{ row.category }}</p>
 							<p> {{ 'City'|trans }} {{ row.city }}</p>
 						</div>
@@ -80,6 +89,11 @@
 			</div>
 		</div>
     {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+           {{ 'There are no offers meeting conditions'|trans }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block others %}

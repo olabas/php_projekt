@@ -27,6 +27,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UpdatePasswordForm extends AbstractType
 {
 
+     /**
+     * App object.
+     *
+     * @access protected
+     * @var Silex\Application $app
+     */
     protected $app;
 
     /**

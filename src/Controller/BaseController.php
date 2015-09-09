@@ -10,6 +10,11 @@
 
 namespace Controller;
 
+/**
+ * Class BaseController.
+ *
+ * @package Controller
+ */
 class BaseController
 {
 

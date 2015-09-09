@@ -72,7 +72,6 @@ class RegisterController extends BaseController implements ControllerProviderInt
 
             if ($form->isValid()) {
                 $data=$form->getData();
-                var_dump($data);
                 if ($data['password']!=$data['password_repeated']) {
                     $error = $app['translator']->trans('Passwords do not match').'.';
                 } else {
@@ -89,30 +88,37 @@ class RegisterController extends BaseController implements ControllerProviderInt
                             'sex' => $data['sex'],
                             'role_id' => 2
                         ));
-                        $view = parent::getView();
-                        $view['info']=$app['translator']->trans('Account')
-                            .' '
-                            .$data['login']
-                            .' '
-                            .$app['translator']->trans('has been successfully registered')
-                            .'! '
-                            .$app['translator']->trans('You can log in now')
-                            .'.';
+                        $app['session']->getFlashBag()->add(
+                            'message',
+                            array(
+                                'type' => 'success',
+                                'content' => $app['translator']->trans('Account has been created. You can log in now.')
+                            )
+                        );
+                        return $app->redirect(
+                            $app['url_generator']->generate(
+                                'index'
+                            ),
+                            301
+                        );
                         $view['form']=$form->createView();
                         return $app['twig']->render('register/register.twig', $view);
                     } catch (UsernameNotUniqueException $e) {
-                        $error = $app['translator']->trans('Username')
-                            .': '
-                            .$data['login']
-                            .' '
-                            .$app['translator']->trans('is not unique')
-                            .'.';
+                        $app['session']->getFlashBag()->add(
+                            'message',
+                            array(
+                                'type' => 'danger',
+                                'content' => $app['translator']->trans(
+                                    'Username is not unique. Please choose another one and try again.'
+                                )
+                            )
+                        );
                     }
                 }
             }
             $view = parent::getView();
             $view['form']=$form->createView();
-            $view['error']=$error;
+            //$view['error']=$error;
         } catch (\PDOException $e) {
             $app->abort(404, $app['translator']->trans('Not found.'));
         }

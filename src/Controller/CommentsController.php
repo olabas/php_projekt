@@ -141,7 +141,7 @@ class CommentsController extends BaseController implements ControllerProviderInt
             $signedInModel = new SignedInModel($app);
             $user = $signedInModel->getUser();
 
-            if ($comment['user_id'] == $user['id']) {
+            if ($comment['user_id'] == $user['id'] || $user['role_id'] == 1) {
                 if ($request->getMethod() == $request::METHOD_POST) {
                     $commentsModel = new CommentsModel($app);
                     $commentsModel->deleteComment($comment['id']);

@@ -126,7 +126,7 @@ class PostsController extends BaseController implements ControllerProviderInterf
      */
     public function filtersAction(Application $app, Request $request)
     {
-        //try {
+        try {
             $view = parent::getView();
             $postsModel = new PostsModel($app);
             $filtersModel = new FiltersModel($app);
@@ -151,9 +151,9 @@ class PostsController extends BaseController implements ControllerProviderInterf
 
             $view['posts'] = $filtersModel->filterPosts($filters);
             $view['form'] = $form->createView();
-        //} catch (\PDOException $e) {
-          //  $app->abort(404, $app['translator']->trans('Not found.'));
-        //}
+        } catch (\PDOException $e) {
+            $app->abort(404, $app['translator']->trans('Not found.'));
+        }
             return $app['twig']->render('posts/filters.twig', $view);
     }
 

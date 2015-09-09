@@ -10,6 +10,11 @@
     <div class="panel-body">
     <form action="{{ path('register_register') }}" method="post" class="form center-block parts">
         <div class="form-group">
+            {% for flashMessage in app.session.getFlashBag.get('message') %}
+                <div class="alert alert-{{ flashMessage.type }}" role="alert">
+                {{ flashMessage.content }}
+            </div>
+            {% endfor %}
             {{ form_errors(form.login) }}
             {{ form_label(form.login) }}
             {{ form_widget(form.login) }}

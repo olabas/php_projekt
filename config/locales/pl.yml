@@ -18,6 +18,10 @@ Registration: Rejestracja
 
 Register: Zarejestruj
 
+Account has been successfully created. You can log in now.: Konto zostało pomyślnie utworzone. Możesz się teraz zalogować.
+
+Username is not unique. Please choose another one and try again.: Nazwa użytkownika jest zajęta. Wybierz inną i spróbuj jeszcze raz.
+
 Search: Szukaj
 
 Search for...: Wpisz frazę...
@@ -201,3 +205,6 @@ Female: Kobieta
 
 Male: Mężczyzna
 
+There are no offers meeting conditions: Nie znaleziono ofert spełniających podane kryteria.
+
+Clear all filters: Wyczyść wybrane filtry

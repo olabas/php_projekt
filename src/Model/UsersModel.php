@@ -34,6 +34,12 @@ class UsersModel
      */
     protected $db;
 
+    /**
+     * Trans
+     *
+     * @access protected
+     * @var Silex\Provider\DoctrineServiceProvider $trans
+     */
     protected $trans;
 
     /**
@@ -162,7 +168,6 @@ class UsersModel
      */
     public function addUser($user)
     {
-        var_dump($user);
         if ($this->existsUser($user['login'])) {
             throw new UsernameNotUniqueException(
                 $this->trans->trans('Username')

@@ -30,6 +30,12 @@ class SignedInModel
      */
     protected $db;
 
+    /**
+     * Security object.
+     *
+     * @access protected
+     * @var Silex\Provider\DoctrineServiceProvider $security
+     */
     protected $security;
 
     /**
@@ -69,7 +75,15 @@ class SignedInModel
     public function getUser()
     {
         $login = $this -> getOnlineUsername();
-        $query = 'SELECT id, login, password, name, surname, email, phone_number FROM users WHERE login = :login';
+        $query = '
+            SELECT 
+                id, login, password, name, surname, 
+                email, phone_number, role_id 
+            FROM 
+                users 
+            WHERE 
+                login = :login
+            ';
         $statement = $this->app['db']->prepare($query);
         $statement->bindValue('login', $login, \PDO::PARAM_STR);
         $statement->execute();

@@ -116,7 +116,7 @@ class FiltersModel
                     }
                     unset($filters['price']);
                 } else {
-                	$filter = (string)$filter;
+                    $filter = (string)$filter;
                 }
             } else {
                 if ($key == 'price') {
@@ -131,6 +131,14 @@ class FiltersModel
         return $filters;
     }
 
+    /**
+     * Bind values
+     *
+     * @access public
+     * @param array $statement prepared query
+     * @param array $data Conditions
+     * @return array
+     */
     public function bindValues($statement, $data)
     {
         $i = 1;
@@ -155,7 +163,6 @@ class FiltersModel
     public function filterPosts($filters)
     {
         $data = $this->prepareFilters($filters);
-        var_dump($data);
         $query = '
             SELECT
             	posts.id, cities.city, categories.category,
@@ -188,7 +195,6 @@ class FiltersModel
         $statement = $this->db->prepare($query);
         $this->bindValues($statement, $data);
         $statement->execute();
-        $result = $this->db->fetchAll($query);
-        return !$result ? array() : $result;
+        return $statement->fetchAll();
     }
 }

@@ -3,18 +3,18 @@
 {% block title %} {{ 'Find your teacher'|trans }} {% endblock %}
 
 {% block filter %}
- {% for flashMessage in app.session.getFlashBag.get('message') %}
+    {% for flashMessage in app.session.getFlashBag.get('message') %}
     <div class="alert alert-{{ flashMessage.type }}" role="alert">
         {{ flashMessage.content }}
     </div>
     {% endfor %}
-    
- <div class="page-header header index">
+
+    <div class="page-header header index">
         <h1> {{ 'Offers'|trans }} <small> {{ 'Filter and view offers'|trans }} </small></h1>
     </div>
      <div class="line-separator"></div>
 
-<div class="panel panel-default filters">
+    <div class="panel panel-default filters">
     <div class="panel-body filters">
     <form action="{{ path('index') }}" method="post" class="form center-block">
     <div class="row">

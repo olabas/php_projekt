@@ -6,13 +6,18 @@
 {% endblock %}
 
 {% block content %}
+    {% for flashMessage in app.session.getFlashBag.get('message') %}
+      <div class="alert alert-{{ flashMessage.type }}" role="alert">
+        {{ flashMessage.content }}
+      </div>
+    {% endfor %}
      <div class="page-header header">
         <h1> {{ 'Admin panel'|trans }} <small> {{ 'Posts'|trans }} </small></h1>
      </div>
      <div class="line-separator"></div>
      <div class="row">
           <div class="col-md-6">
-               <a href="{{ url('index_posts') }}" class="btn btn-block btn-primary message>
+               <a href="{{ url('index_posts') }}" class="btn btn-block btn-primary message">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     {{ 'Managing posts'|trans }}
                </a> 

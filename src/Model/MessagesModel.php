@@ -28,7 +28,13 @@ class MessagesModel
      * @var Silex\Provider\DoctrineServiceProvider $db
      */
     protected $db;
-
+    
+    /**
+     * Security object.
+     *
+     * @access protected
+     * @var Silex\Provider\DoctrineServiceProvider $security
+     */
     protected $security;
 
 
